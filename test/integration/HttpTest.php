@@ -1,6 +1,6 @@
 <?php
 
-namespace edd\api\test\integration;
+namespace adamcameron\php8\test\integration;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
