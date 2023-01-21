@@ -27,7 +27,7 @@ class GreeterTest extends TestCase
     {
         $this->markTestSkipped("skipping this so the coverage report is more interesting");
         $name = "Zachary";
-        $expectedGreeting = "Hey, $name";
+        $expectedGreeting = "Hi, $name";
         $actualGreeting = Greeter::greet($name, Greeter::INFORMAL);
         $this->assertEquals(
             $expectedGreeting,
