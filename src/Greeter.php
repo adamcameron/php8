@@ -14,5 +14,4 @@ class Greeter
         }
         return "Hi, $name";
     }
-
 }
