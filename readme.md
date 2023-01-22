@@ -15,13 +15,14 @@ Clone the repository (URL TBC):
 In a terminal, navigate to the `docker` directory, and run the following commands:
 ```bash
 ~/src$ cd php8/docker
-~/src/php8/docker$ docker-compose build
+~/src/php8/docker$ bin/rebuildContainers.sh [DB root password] [DB user password]
 [usual docker output elided]
-~/src/php8/docker$ docker-compose up --detach
 [+] Running 3/3
- ⠿ Network php8_default    Created                                                                                                                                                                       0.0s
- ⠿ Container php8-php-1    Started                                                                                                                                                                       0.7s
- ⠿ Container php8-nginx-1  Started
+ ⠿ Network php8_default       Created 0.0s
+ ⠿ Volume "php8_mariaDbData"  Created 0.0s
+ ⠿ Container php8-php-1       Started 0.7s
+ ⠿ Container php8-nginx-1     Started 1.0s
+ ⠿ Container php8-mariadb-1   Started 1.1s
 ~/src/php8/docker$ 
 ```
 
@@ -90,3 +91,11 @@ Generating code coverage report in HTML format ... done [00:01.929]
 - Browse to `http://localhost:8008/test-coverage-report/` to see the PHPUnit test coverage report.
 Currently it is not showing 100% test coverage by design,
 to demonstrate how code coverage is presented in the output report.
+
+## Restart containers
+
+If one needs to restart the container, there's a shell script for that too:
+```bash
+~/src$ cd php8/docker
+~/src/php8/docker$ bin/restartContainers.sh [DB root password] [DB user password] # use the same pwds as when building the containers
+```

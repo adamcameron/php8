@@ -19,8 +19,36 @@ services:
       context: php
       dockerfile: Dockerfile
 
+    environment:
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+
     stdin_open: true
     tty: true
 
     volumes:
       - ..:/var/www
+
+  mariadb:
+    build:
+      context: mariadb
+      dockerfile: Dockerfile
+
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+
+    ports:
+      - "3382:3306"
+
+    stdin_open: true
+    tty: true
+
+    volumes:
+      - mariaDbData:/var/lib/mariadb
+
+volumes:
+  mariaDbData:
