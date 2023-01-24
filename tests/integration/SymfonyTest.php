@@ -25,7 +25,9 @@ class SymfonyTest extends TestCase
 
         $html = $response->getBody();
         $document = new \DOMDocument();
-        $document->loadHTML($html, LIBXML_NOWARNING | LIBXML_NOERROR); // not ideal, but libxml can't handle the SVG in the Symfony logo
+
+        // not ideal, but libxml can't handle the SVG in the Symfony logo
+        $document->loadHTML($html, LIBXML_NOWARNING | LIBXML_NOERROR);
 
         $xpathDocument = new \DOMXPath($document);
 
@@ -33,7 +35,10 @@ class SymfonyTest extends TestCase
         $this->assertCount(1, $hasTitle);
     }
 
-    /** @testdox It can run the console in a shell */
+    /**
+     * @testdox It can run the console in a shell
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable) - $output
+     */
     public function testSymfonyConsoleRuns()
     {
         $appRootDir = dirname(__DIR__, 2);
@@ -42,5 +47,4 @@ class SymfonyTest extends TestCase
 
         $this->assertEquals(0, $returnCode);
     }
-
 }
