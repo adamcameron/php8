@@ -45,8 +45,7 @@
     },
     "autoload": {
         "psr-4": {
-            "adamcameron\\php8\\": "src/",
-            "App\\": "src/"
+            "adamcameron\\php8\\": "src/"
         }
     },
     "autoload-dev": {
@@ -64,9 +63,9 @@
         "symfony/polyfill-php81": "*"
     },
     "scripts" : {
-        "test": "phpunit --testdox test",
-        "phpmd": "phpmd src,test text phpmd.xml",
-        "phpcs": "phpcs src test",
+        "test": "phpunit --testdox tests",
+        "phpmd": "phpmd src,tests text phpmd.xml",
+        "phpcs": "phpcs src tests",
         "test-all": [
             "@test",
             "@phpmd",

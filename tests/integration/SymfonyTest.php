@@ -32,4 +32,15 @@ class SymfonyTest extends TestCase
         $hasTitle = $xpathDocument->query('/html/head/title[text() = "Welcome to Symfony!"]');
         $this->assertCount(1, $hasTitle);
     }
+
+    /** @testdox It can run the console in a shell */
+    public function testSymfonyConsoleRuns()
+    {
+        $appRootDir = dirname(__DIR__, 2);
+
+        exec("{$appRootDir}/bin/console --help", $output, $returnCode);
+
+        $this->assertEquals(0, $returnCode);
+    }
+
 }
