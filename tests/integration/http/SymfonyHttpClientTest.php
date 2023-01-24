@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\test\integration\http;
+namespace adamcameron\php8\tests\integration\http;
 
 use Symfony\Component\HttpClient\HttpClient;
 

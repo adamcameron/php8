@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\test\integration\http;
+namespace adamcameron\php8\tests\integration\http;
 
 /** @testdox Tests of PHP streams functionality relating to HTTP requests */
 class PhpStreamsTest extends HttpTest

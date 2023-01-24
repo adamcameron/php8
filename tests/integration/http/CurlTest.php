@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\test\integration\http;
+namespace adamcameron\php8\tests\integration\http;
 
 /** @testdox Tests of Curl functionality */
 class CurlTest extends HttpTest

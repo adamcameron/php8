@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\test\unit;
+namespace adamcameron\php8\tests\unit;
 
 use adamcameron\php8\Greeter;
 
