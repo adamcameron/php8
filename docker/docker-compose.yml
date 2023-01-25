@@ -22,12 +22,9 @@ services:
       context: php
       dockerfile: Dockerfile
 
-    environment:
-      - MARIADB_DATABASE=${MARIADB_DATABASE}
-      - MARIADB_HOST=${MARIADB_HOST}
-      - MARIADB_PORT=${MARIADB_PORT}
-      - MARIADB_USER=${MARIADB_USER}
-      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    env_file:
+      - envVars.public
+      - envVars.private
 
     stdin_open: true
     tty: true
@@ -40,11 +37,9 @@ services:
       context: mariadb
       dockerfile: Dockerfile
 
-    environment:
-      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MARIADB_DATABASE=${MARIADB_DATABASE}
-      - MARIADB_USER=${MARIADB_USER}
-      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    env_file:
+      - envVars.public
+      - envVars.private
 
     ports:
       - "3382:3306"

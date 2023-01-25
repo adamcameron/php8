@@ -12,10 +12,19 @@ Clone the repository (URL TBC):
 ~/src$ git clone git@github.com:adamcameron/php8.git
 ```
 
-In a terminal, navigate to the `docker` directory, and run the following commands:
+Create a file `docker/envVars.private`, containing the following:
+```bash
+MARIADB_ROOT_PASSWORD=[DB root password]
+MARIADB_PASSWORD=[DB user password]
+```
+**Do not commit this file to source control**. It is already in `.gitignore`.
+
+In a terminal, navigate to the `docker` directory, and run `bin/rebuildContainers.sh`
+(this just calls `docker-compose down`, `docker-compose build` and `docker-compose up -d`):
+
 ```bash
 ~/src$ cd php8/docker
-~/src/php8/docker$ bin/rebuildContainers.sh [DB root password] [DB user password]
+~/src/php8/docker$ bin/rebuildContainers.sh
 [usual docker output elided]
 [+] Running 3/3
  ⠿ Network php8_default       Created 0.0s
@@ -97,5 +106,7 @@ to demonstrate how code coverage is presented in the output report.
 If one needs to restart the container, there's a shell script for that too:
 ```bash
 ~/src$ cd php8/docker
-~/src/php8/docker$ bin/restartContainers.sh [DB root password] [DB user password] # use the same pwds as when building the containers
+~/src/php8/docker$ bin/restartContainers.sh
 ```
+
+That will stop the containers, and then start them again (without rebuilding).
