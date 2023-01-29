@@ -5,10 +5,8 @@
         colors="true"
         cacheResult="false"
         testdox="true"
-        stopOnFailure="true"
-        stopOnError="true"
-        stopOnWarning="true"
         failOnWarning="true"
+        bootstrap="tests/bootstrap.php"
 >
     <coverage>
         <include>
@@ -19,6 +17,9 @@
         </report>
     </coverage>
     <testsuites>
+        <testsuite name="Acceptance tests">
+            <directory>tests/acceptance/</directory>
+        </testsuite>
         <testsuite name="Integration tests">
             <directory>tests/integration/</directory>
         </testsuite>

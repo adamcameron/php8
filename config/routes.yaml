@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: adamcameron\php8\Controller
     type: attribute
+
+PostcodeLookup:
+    path: /postcode-lookup/{postcode}
+    controller: adamcameron\php8\Controller\PostcodeLookupController::doGet
+    methods: GET

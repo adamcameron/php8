@@ -1,15 +1,15 @@
 <?php
 
-namespace adamcameron\php8\tests\integration;
+namespace System;
 
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;
 use Doctrine\DBAL\DriverManager;
-use \PDO;
+use PDO;
 use PHPUnit\Framework\TestCase;
-use \RuntimeException;
-use \stdClass;
+use RuntimeException;
+use stdClass;
 
 /** @testdox DB tests */
 class DbTest extends TestCase

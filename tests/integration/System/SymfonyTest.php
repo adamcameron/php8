@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\tests\integration;
+namespace System;
 
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
@@ -41,7 +41,7 @@ class SymfonyTest extends TestCase
      */
     public function testSymfonyConsoleRuns()
     {
-        $appRootDir = dirname(__DIR__, 2);
+        $appRootDir = dirname(__DIR__, 3);
 
         exec("{$appRootDir}/bin/console --help", $output, $returnCode);
 
