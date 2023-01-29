@@ -3,7 +3,7 @@
 namespace adamcameron\php8\tests\integration\Controller;
 
 use adamcameron\php8\Adapter\AddressService;
-use adamcameron\php8\tests\fixtures\AddressService\TestConstants;
+use adamcameron\php8\tests\Fixtures\AddressService\TestConstants;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

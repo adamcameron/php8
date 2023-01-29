@@ -1,6 +1,6 @@
 <?php
 
-namespace System;
+namespace adamcameron\php8\tests\integration\System;
 
 use PHPUnit\Framework\TestCase;
 

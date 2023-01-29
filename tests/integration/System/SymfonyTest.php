@@ -1,6 +1,6 @@
 <?php
 
-namespace System;
+namespace adamcameron\php8\tests\integration\System;
 
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;

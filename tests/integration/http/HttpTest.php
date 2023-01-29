@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\tests\integration\http;
+namespace adamcameron\php8\tests\Integration\Http;
 
 use PHPUnit\Framework\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\tests\unit\Adapter\AddressService;
+namespace adamcameron\php8\tests\Unit\Adapter\AddressService;
 
 use adamcameron\php8\Adapter\AddressService\Adapter as AddressServiceAdapter;
 use adamcameron\php8\Adapter\AddressService\Exception as AddressServiceException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\tests\fixtures\AddressService;
+namespace adamcameron\php8\tests\Fixtures\AddressService;
 
 class TestConstants
 {
