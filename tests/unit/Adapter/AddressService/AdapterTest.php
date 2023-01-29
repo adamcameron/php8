@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/** @testdox Tests of the TestConstants\Adapter */
+/** @testdox Tests of the AddressService\Adapter */
 class AdapterTest extends TestCase
 {
-    /** @testdox It throws an TestConstants\Exception if the getaddress.io call returns an unexpected status */
+    /** @testdox It throws an AddressService\Exception if the getaddress.io call returns an unexpected status */
     public function testThrowsExceptionOnUnexpectedStatus()
     {
         $statusToReturn = Response::HTTP_NOT_IMPLEMENTED;
@@ -28,7 +28,7 @@ class AdapterTest extends TestCase
         $adapter->get("POSTCODE_NOT_TESTED");
     }
 
-    /** @testdox It throws an TestConstants\Exception if the body is not JSON */
+    /** @testdox It throws an AddressService\Exception if the body is not JSON */
     public function testThrowsExceptionOnBodyNotJson()
     {
         $this->assertCorrectExceptionThrown(
@@ -41,7 +41,7 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox Throws an TestConstants\Exception if the body is not an array */
+    /** @testdox Throws an AddressService\Exception if the body is not an array */
     public function testThrowsExceptionOnResultNotArray()
     {
         $this->assertCorrectExceptionThrown(
@@ -54,7 +54,7 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox it throws an exception if there is no address data in the response json */
+    /** @testdox it throws an AddressService\Exception if there is no address data in the response json */
     public function testThrowsExceptionOnNoAddressData()
     {
         $this->assertCorrectExceptionThrown(
@@ -70,7 +70,7 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox it throws an exception if the addresses data is not an array */
+    /** @testdox it throws an AddressService\Exception if the addresses data is not an array */
     public function testThrowsExceptionOnAddressDataNotArray()
     {
         $this->assertCorrectExceptionThrown(
@@ -86,7 +86,7 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox it throws an exception if the addresses data is not an array of strings */
+    /** @testdox it throws an AddressService\Exception if the addresses data is not an array of strings */
     public function testThrowsExceptionOnAddressDataNotArrayOfStrings()
     {
         $this->assertCorrectExceptionThrown(
@@ -135,7 +135,7 @@ class AdapterTest extends TestCase
         $this->assertEquals($expectedMessage, $result->getMessage());
     }
 
-    /** @testdox it returns a standard message if the non-200 response doesn't include one */
+    /** @testdox it returns a standard message if the non-200 response doesn't include a valid one */
     public function testReturnsStandardMessageOnNon200Response()
     {
         $statusToReturn = Response::HTTP_BAD_REQUEST;

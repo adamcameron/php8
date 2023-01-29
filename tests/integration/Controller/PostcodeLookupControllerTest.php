@@ -1,8 +1,7 @@
 <?php
 
-namespace adamcameron\php8\tests\integration\Controller;
+namespace adamcameron\php8\tests\Integration\Controller;
 
-use adamcameron\php8\Adapter\AddressService;
 use adamcameron\php8\tests\Fixtures\AddressService\TestConstants;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -67,38 +66,5 @@ class PostcodeLookupControllerTest extends WebTestCase
             [TestConstants::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
             [TestConstants::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
         ];
-    }
-
-    /** @testdox it returns an error status and no addresses when there's been a server error */
-    public function testReturnsErrorStatusCodeAndNoAddressesWhenServerError()
-    {
-        $container = self::getContainer();
-        $mockedAddressServiceAdapter = $this
-            ->getMockBuilder(AddressService\Adapter::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['get'])
-            ->getMock();
-        $mockedAddressServiceAdapter
-            ->expects($this->once())
-            ->method('get')
-            ->willThrowException(new AddressService\Exception("TEST_ERROR_MESSAGE"));
-        $container->set(AddressService\Adapter::class, $mockedAddressServiceAdapter);
-
-        $this->client->request(
-            "GET",
-            sprintf("/postcode-lookup/%s", TestConstants::POSTCODE_OK)
-        );
-
-        $response = $this->client->getResponse();
-
-        $this->assertEquals(
-            Response::HTTP_INTERNAL_SERVER_ERROR,
-            $response->getStatusCode()
-        );
-
-        $result = json_decode($response->getContent(), false);
-        $this->assertObjectHasAttribute('addresses', $result);
-        $this->assertEmpty($result->addresses);
-        $this->assertEquals("TEST_ERROR_MESSAGE", $result->message);
     }
 }

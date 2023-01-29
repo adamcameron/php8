@@ -1,6 +1,6 @@
 <?php
 
-namespace Adapter\AddressService;
+namespace adamcameron\php8\tests\Integration\Adapter\AddressService;
 
 use adamcameron\php8\Adapter\AddressService\Adapter as AddressServiceAdapter;
 use adamcameron\php8\tests\Fixtures\AddressService\TestConstants;
