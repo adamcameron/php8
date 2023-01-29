@@ -3,7 +3,7 @@
 namespace Adapter\AddressService;
 
 use adamcameron\php8\Adapter\AddressService\Adapter as AddressServiceAdapter;
-use adamcameron\php8\tests\fixtures\AddressService;
+use adamcameron\php8\tests\fixtures\AddressService\TestConstants;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ class AdapterTest extends TestCase
     /** @testdox It can get addresses from a valid postcode */
     public function testCanGetAddress()
     {
-        $response = $this->adapter->get(AddressService::POSTCODE_OK);
+        $response = $this->adapter->get(TestConstants::POSTCODE_OK);
 
         $this->assertEquals(Response::HTTP_OK, $response->getHttpStatus());
         $this->assertGreaterThanOrEqual(1, count($response->getAddresses()));
@@ -32,11 +32,11 @@ class AdapterTest extends TestCase
     public function provideErrorTestCases(): array
     {
         return [
-            [AddressService::POSTCODE_INVALID, Response::HTTP_BAD_REQUEST],
-            [AddressService::POSTCODE_UNAUTHORIZED, Response::HTTP_UNAUTHORIZED],
-            [AddressService::POSTCODE_FORBIDDEN, Response::HTTP_FORBIDDEN],
-            [AddressService::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
-            [AddressService::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
+            [TestConstants::POSTCODE_INVALID, Response::HTTP_BAD_REQUEST],
+            [TestConstants::POSTCODE_UNAUTHORIZED, Response::HTTP_UNAUTHORIZED],
+            [TestConstants::POSTCODE_FORBIDDEN, Response::HTTP_FORBIDDEN],
+            [TestConstants::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
+            [TestConstants::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
         ];
     }
 

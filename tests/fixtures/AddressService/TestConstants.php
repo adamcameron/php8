@@ -1,8 +1,8 @@
 <?php
 
-namespace adamcameron\php8\tests\fixtures;
+namespace adamcameron\php8\tests\fixtures\AddressService;
 
-class AddressService
+class TestConstants
 {
     // provided by https://documentation.getaddress.io/ (these do not impact look-up usage)
     public const POSTCODE_OK = "XX2 00X";

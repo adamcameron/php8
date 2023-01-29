@@ -3,24 +3,23 @@
 namespace adamcameron\php8\tests\unit\Adapter\AddressService;
 
 use adamcameron\php8\Adapter\AddressService\Adapter as AddressServiceAdapter;
-use adamcameron\php8\Adapter\AddressService\InvalidResponseBodyException;
-use adamcameron\php8\Adapter\AddressService\UnsupportedResponseStatusException;
+use adamcameron\php8\Adapter\AddressService\Exception as AddressServiceException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/** @testdox Tests of the AddressService\Adapter */
+/** @testdox Tests of the TestConstants\Adapter */
 class AdapterTest extends TestCase
 {
-    /** @testdox It throws an UnsupportedResponseStatusException if the getaddress.io call returns an unexpected status */
+    /** @testdox It throws an TestConstants\Exception if the getaddress.io call returns an unexpected status */
     public function testThrowsExceptionOnUnexpectedStatus()
     {
         $statusToReturn = Response::HTTP_NOT_IMPLEMENTED;
 
         $this->assertCorrectExceptionThrown(
-            UnsupportedResponseStatusException::class,
+            AddressServiceException::class,
             "Unexpected status code returned: $statusToReturn"
         );
 
@@ -29,11 +28,11 @@ class AdapterTest extends TestCase
         $adapter->get("POSTCODE_NOT_TESTED");
     }
 
-    /** @testdox It throws an InvalidResponseBodyException if the body is not JSON */
+    /** @testdox It throws an TestConstants\Exception if the body is not JSON */
     public function testThrowsExceptionOnBodyNotJson()
     {
         $this->assertCorrectExceptionThrown(
-            InvalidResponseBodyException::class,
+            AddressServiceException::class,
             "json_decode returned [Syntax error]"
         );
 
@@ -42,11 +41,11 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox Throws an InvalidResponseBodyException if the body is not an array */
+    /** @testdox Throws an TestConstants\Exception if the body is not an array */
     public function testThrowsExceptionOnResultNotArray()
     {
         $this->assertCorrectExceptionThrown(
-            InvalidResponseBodyException::class,
+            AddressServiceException::class,
             "Response JSON schema is not valid"
         );
 
@@ -59,7 +58,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnNoAddressData()
     {
         $this->assertCorrectExceptionThrown(
-            InvalidResponseBodyException::class,
+            AddressServiceException::class,
             "Response JSON schema is not valid"
         );
 
@@ -75,7 +74,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnAddressDataNotArray()
     {
         $this->assertCorrectExceptionThrown(
-            InvalidResponseBodyException::class,
+            AddressServiceException::class,
             "Response JSON schema is not valid"
         );
 
@@ -91,7 +90,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnAddressDataNotArrayOfStrings()
     {
         $this->assertCorrectExceptionThrown(
-            InvalidResponseBodyException::class,
+            AddressServiceException::class,
             "Response JSON schema is not valid"
         );
 

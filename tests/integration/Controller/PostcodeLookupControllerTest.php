@@ -1,10 +1,9 @@
 <?php
 
-namespace adamcameron\php8\tests\acceptance\Controller;
+namespace adamcameron\php8\tests\integration\Controller;
 
-use adamcameron\php8\Adapter\AddressService\Adapter as AddressServiceAdapter;
-use adamcameron\php8\Adapter\AddressService\UnsupportedResponseStatusException;
-use adamcameron\php8\tests\fixtures\AddressService;
+use adamcameron\php8\Adapter\AddressService;
+use adamcameron\php8\tests\fixtures\AddressService\TestConstants;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,7 @@ class PostcodeLookupControllerTest extends WebTestCase
     {
         $this->client->request(
             "GET",
-            sprintf("/postcode-lookup/%s", AddressService::POSTCODE_OK)
+            sprintf("/postcode-lookup/%s", TestConstants::POSTCODE_OK)
         );
         $response = $this->client->getResponse();
 
@@ -62,11 +61,11 @@ class PostcodeLookupControllerTest extends WebTestCase
     public function provideCasesForClientErrorTests() : array
     {
         return [
-            [AddressService::POSTCODE_INVALID, Response::HTTP_BAD_REQUEST],
-            [AddressService::POSTCODE_UNAUTHORIZED, Response::HTTP_UNAUTHORIZED],
-            [AddressService::POSTCODE_FORBIDDEN, Response::HTTP_FORBIDDEN],
-            [AddressService::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
-            [AddressService::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
+            [TestConstants::POSTCODE_INVALID, Response::HTTP_BAD_REQUEST],
+            [TestConstants::POSTCODE_UNAUTHORIZED, Response::HTTP_UNAUTHORIZED],
+            [TestConstants::POSTCODE_FORBIDDEN, Response::HTTP_FORBIDDEN],
+            [TestConstants::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
+            [TestConstants::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
         ];
     }
 
@@ -75,19 +74,19 @@ class PostcodeLookupControllerTest extends WebTestCase
     {
         $container = self::getContainer();
         $mockedAddressServiceAdapter = $this
-            ->getMockBuilder(AddressServiceAdapter::class)
+            ->getMockBuilder(AddressService\Adapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['get'])
             ->getMock();
         $mockedAddressServiceAdapter
             ->expects($this->once())
             ->method('get')
-            ->willThrowException(new UnsupportedResponseStatusException("TEST_ERROR_MESSAGE"));
-        $container->set(AddressServiceAdapter::class, $mockedAddressServiceAdapter);
+            ->willThrowException(new AddressService\Exception("TEST_ERROR_MESSAGE"));
+        $container->set(AddressService\Adapter::class, $mockedAddressServiceAdapter);
 
         $this->client->request(
             "GET",
-            sprintf("/postcode-lookup/%s", AddressService::POSTCODE_OK)
+            sprintf("/postcode-lookup/%s", TestConstants::POSTCODE_OK)
         );
 
         $response = $this->client->getResponse();
