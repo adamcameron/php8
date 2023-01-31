@@ -1,7 +1,8 @@
 <?php
 
-namespace adamcameron\php8\tests\integration\System;
-
+namespace adamcameron\php8\tests\Integration\System;
+use \DOMDocument;
+use \DOMXPath;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +25,12 @@ class SymfonyTest extends TestCase
         $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
 
         $html = $response->getBody();
-        $document = new \DOMDocument();
+        $document = new DOMDocument();
 
         // not ideal, but libxml can't handle the SVG in the Symfony logo
         $document->loadHTML($html, LIBXML_NOWARNING | LIBXML_NOERROR);
 
-        $xpathDocument = new \DOMXPath($document);
+        $xpathDocument = new DOMXPath($document);
 
         $hasTitle = $xpathDocument->query('/html/head/title[text() = "Welcome to Symfony!"]');
         $this->assertCount(1, $hasTitle);

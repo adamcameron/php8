@@ -18,6 +18,7 @@
         "ext-session": "*",
         "ext-simplexml": "*",
         "ext-tokenizer": "*",
+        "ext-xml": "*",
         "ext-zend-opcache": "*",
         "ext-zip": "*",
         "doctrine/dbal": "^3.5.3",

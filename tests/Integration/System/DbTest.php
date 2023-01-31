@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\tests\integration\System;
+namespace adamcameron\php8\tests\Integration\System;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;

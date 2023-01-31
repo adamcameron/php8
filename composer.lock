@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8808ec0ac284d561cd373c52d3e52bc2",
+    "content-hash": "265335c8893db952e01b2d9605d401af",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -5804,6 +5804,7 @@
         "ext-session": "*",
         "ext-simplexml": "*",
         "ext-tokenizer": "*",
+        "ext-xml": "*",
         "ext-zend-opcache": "*",
         "ext-zip": "*"
     },
