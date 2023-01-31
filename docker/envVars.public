@@ -1,3 +1,4 @@
+# DO NOT put anything in here that should not be public (eg: passwords, api keys, etc)
 MARIADB_HOST=mariadb
 MARIADB_PORT=3306
 MARIADB_DATABASE=db1
