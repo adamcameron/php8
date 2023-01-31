@@ -9,6 +9,12 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class Adapter
 {
+    public const ERROR_MESSAGES = [
+        HttpFoundationResponse::HTTP_UNAUTHORIZED => "API key is not valid",
+        HttpFoundationResponse::HTTP_FORBIDDEN => "Permission denied",
+        HttpFoundationResponse::HTTP_TOO_MANY_REQUESTS  => "Too many requests",
+        HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR => "Server error"
+    ];
 
     private const SUPPORTED_SERVICE_RESPONSES = [
         HttpFoundationResponse::HTTP_OK,

@@ -1,0 +1,9 @@
+monolog:
+    handlers:
+        address_service_log:
+            type: stream
+            path: '%kernel.logs_dir%/address_service.log'
+            level: debug
+            channels: [address_service]
+
+    channels: [address_service]

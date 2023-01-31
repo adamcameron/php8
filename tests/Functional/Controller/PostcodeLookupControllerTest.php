@@ -21,6 +21,19 @@ class PostcodeLookupControllerTest extends WebTestCase
     /** @testdox it returns an error status and no addresses when there's been a server error */
     public function testReturnsErrorStatusCodeAndNoAddressesWhenServerError()
     {
+        $this->mockAddressServiceInContainer();
+
+        $this->client->request(
+            "GET",
+            sprintf("/postcode-lookup/%s", TestConstants::POSTCODE_OK)
+        );
+
+        $response = $this->client->getResponse();
+        $this->assertResponseIsCorrect($response);
+    }
+
+    private function mockAddressServiceInContainer(): void
+    {
         $container = self::getContainer();
         $mockedAddressServiceAdapter = $this
             ->getMockBuilder(AddressService\Adapter::class)
@@ -32,14 +45,10 @@ class PostcodeLookupControllerTest extends WebTestCase
             ->method('get')
             ->willThrowException(new AddressService\Exception("TEST_ERROR_MESSAGE"));
         $container->set(AddressService\Adapter::class, $mockedAddressServiceAdapter);
+    }
 
-        $this->client->request(
-            "GET",
-            sprintf("/postcode-lookup/%s", TestConstants::POSTCODE_OK)
-        );
-
-        $response = $this->client->getResponse();
-
+    private function assertResponseIsCorrect(Response $response): void
+    {
         $this->assertEquals(
             Response::HTTP_INTERNAL_SERVER_ERROR,
             $response->getStatusCode()
