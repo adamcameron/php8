@@ -32,11 +32,11 @@ class AdapterTest extends TestCase
     public function provideErrorTestCases(): array
     {
         return [
-            [TestConstants::POSTCODE_INVALID, Response::HTTP_BAD_REQUEST],
-            [TestConstants::POSTCODE_UNAUTHORIZED, Response::HTTP_UNAUTHORIZED],
-            [TestConstants::POSTCODE_FORBIDDEN, Response::HTTP_FORBIDDEN],
-            [TestConstants::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
-            [TestConstants::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
+            "Invalid postcode (400)" => [TestConstants::POSTCODE_INVALID, Response::HTTP_BAD_REQUEST],
+            "Invalid API key (401)" => [TestConstants::POSTCODE_UNAUTHORIZED, Response::HTTP_UNAUTHORIZED],
+            "Invalid account (403)" => [TestConstants::POSTCODE_FORBIDDEN, Response::HTTP_FORBIDDEN],
+            "Throttled (429)" => [TestConstants::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
+            "Server error (5xx)" => [TestConstants::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
         ];
     }
 

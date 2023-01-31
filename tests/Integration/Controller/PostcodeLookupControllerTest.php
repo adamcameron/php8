@@ -60,11 +60,27 @@ class PostcodeLookupControllerTest extends WebTestCase
     public function provideCasesForClientErrorTests() : array
     {
         return [
-            [TestConstants::POSTCODE_INVALID, Response::HTTP_BAD_REQUEST],
-            [TestConstants::POSTCODE_UNAUTHORIZED, Response::HTTP_UNAUTHORIZED],
-            [TestConstants::POSTCODE_FORBIDDEN, Response::HTTP_FORBIDDEN],
-            [TestConstants::POSTCODE_OVER_LIMIT, Response::HTTP_TOO_MANY_REQUESTS],
-            [TestConstants::POSTCODE_SERVER_ERROR, Response::HTTP_INTERNAL_SERVER_ERROR]
+            "Invalid postcode returns BAD REQUEST" => [
+                TestConstants::POSTCODE_INVALID,
+                Response::HTTP_BAD_REQUEST
+            ],
+            "Bad API key returns UNAUTHORIZED" => [
+                TestConstants::POSTCODE_UNAUTHORIZED,
+                Response::HTTP_UNAUTHORIZED
+            ],
+            "Unpaid account returns FORBIDDEN" => [
+                TestConstants::POSTCODE_FORBIDDEN,
+                Response::HTTP_FORBIDDEN
+            ],
+            "Too many requests" => [
+                TestConstants::POSTCODE_OVER_LIMIT,
+                Response::HTTP_TOO_MANY_REQUESTS
+            ],
+            "An unhandled server error returns 500" => [
+                TestConstants::POSTCODE_SERVER_ERROR,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            ]
         ];
+
     }
 }
