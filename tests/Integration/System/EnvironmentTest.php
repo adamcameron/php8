@@ -11,7 +11,7 @@ class EnvironmentTest extends TestCase
      * @testdox The expected environment variables exist
      * @dataProvider expectedEnvironmentVariablesProvider
      */
-    public function testEnvironmentVariables($expectedEnvironmentVariable)
+    public function testEnvironmentVariables(string $expectedEnvironmentVariable)
     {
         $this->assertNotFalse(
             getenv($expectedEnvironmentVariable),

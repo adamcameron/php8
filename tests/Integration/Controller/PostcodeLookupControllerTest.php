@@ -81,6 +81,5 @@ class PostcodeLookupControllerTest extends WebTestCase
                 Response::HTTP_INTERNAL_SERVER_ERROR
             ]
         ];
-
     }
 }

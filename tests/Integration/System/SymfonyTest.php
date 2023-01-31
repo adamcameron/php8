@@ -5,6 +5,7 @@ use \DOMDocument;
 use \DOMXPath;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @testdox Tests of Symfony installation */
@@ -46,6 +47,6 @@ class SymfonyTest extends TestCase
 
         exec("{$appRootDir}/bin/console --help", $output, $returnCode);
 
-        $this->assertEquals(0, $returnCode);
+        $this->assertEquals(Command::SUCCESS, $returnCode);
     }
 }
