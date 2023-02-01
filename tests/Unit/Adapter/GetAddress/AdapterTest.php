@@ -1,25 +1,25 @@
 <?php
 
-namespace adamcameron\php8\tests\Unit\Adapter\AddressService;
+namespace adamcameron\php8\tests\Unit\Adapter\GetAddress;
 
-use adamcameron\php8\Adapter\AddressService\Adapter as AddressServiceAdapter;
-use adamcameron\php8\Adapter\AddressService\Exception as AddressServiceException;
+use adamcameron\php8\Adapter\GetAddress\Adapter as GetAddressAdapter;
+use adamcameron\php8\Adapter\GetAddress\Exception as GetAddressException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/** @testdox Tests of the AddressService\Adapter */
+/** @testdox Tests of the GetAddress\Adapter */
 class AdapterTest extends TestCase
 {
-    /** @testdox It throws an AddressService\Exception if the getaddress.io call returns an unexpected status */
+    /** @testdox It throws an GetAddress\Exception if the getaddress.io call returns an unexpected status */
     public function testThrowsExceptionOnUnexpectedStatus()
     {
         $statusToReturn = Response::HTTP_NOT_IMPLEMENTED;
 
         $this->assertCorrectExceptionThrown(
-            AddressServiceException::class,
+            GetAddressException::class,
             "Unexpected status code returned: $statusToReturn"
         );
 
@@ -28,11 +28,11 @@ class AdapterTest extends TestCase
         $adapter->get("POSTCODE_NOT_TESTED");
     }
 
-    /** @testdox It throws an AddressService\Exception if the body is not JSON */
+    /** @testdox It throws an GetAddress\Exception if the body is not JSON */
     public function testThrowsExceptionOnBodyNotJson()
     {
         $this->assertCorrectExceptionThrown(
-            AddressServiceException::class,
+            GetAddressException::class,
             "json_decode returned [Syntax error]"
         );
 
@@ -41,11 +41,11 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox Throws an AddressService\Exception if the body is not an array */
+    /** @testdox Throws an GetAddress\Exception if the body is not an array */
     public function testThrowsExceptionOnResultNotArray()
     {
         $this->assertCorrectExceptionThrown(
-            AddressServiceException::class,
+            GetAddressException::class,
             "Response JSON schema is not valid"
         );
 
@@ -54,11 +54,11 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox it throws an AddressService\Exception if there is no address data in the response json */
+    /** @testdox it throws an GetAddress\Exception if there is no address data in the response json */
     public function testThrowsExceptionOnNoAddressData()
     {
         $this->assertCorrectExceptionThrown(
-            AddressServiceException::class,
+            GetAddressException::class,
             "Response JSON schema is not valid"
         );
 
@@ -70,11 +70,11 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox it throws an AddressService\Exception if the addresses data is not an array */
+    /** @testdox it throws an GetAddress\Exception if the addresses data is not an array */
     public function testThrowsExceptionOnAddressDataNotArray()
     {
         $this->assertCorrectExceptionThrown(
-            AddressServiceException::class,
+            GetAddressException::class,
             "Response JSON schema is not valid"
         );
 
@@ -86,11 +86,11 @@ class AdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox it throws an AddressService\Exception if the addresses data is not an array of strings */
+    /** @testdox it throws an GetAddress\Exception if the addresses data is not an array of strings */
     public function testThrowsExceptionOnAddressDataNotArrayOfStrings()
     {
         $this->assertCorrectExceptionThrown(
-            AddressServiceException::class,
+            GetAddressException::class,
             "Response JSON schema is not valid"
         );
 
@@ -171,11 +171,11 @@ class AdapterTest extends TestCase
         $this->assertEquals($expectedAddresses, $result->getAddresses());
     }
 
-    private function getTestAdapter(int $statusToReturn, string $content): AddressServiceAdapter
+    private function getTestAdapter(int $statusToReturn, string $content): GetAddressAdapter
     {
         $client = $this->getMockedClient($statusToReturn, $content);
 
-        return new AddressServiceAdapter("NOT_TESTED", $client);
+        return new GetAddressAdapter("NOT_TESTED", $client);
     }
 
     private function getMockedClient(int $statusToReturn, string $content): MockObject

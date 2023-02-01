@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\Adapter\AddressService;
+namespace adamcameron\php8\Adapter\GetAddress;
 
 class Exception extends \RuntimeException
 {

@@ -2,7 +2,7 @@
 
 namespace adamcameron\php8\tests\Integration\Controller;
 
-use adamcameron\php8\tests\Fixtures\AddressService\TestConstants;
+use adamcameron\php8\tests\Fixtures\GetAddress\TestConstants;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +25,7 @@ class PostcodeLookupControllerTest extends WebTestCase
             sprintf("/postcode-lookup/%s", TestConstants::POSTCODE_OK)
         );
         $response = $this->client->getResponse();
+
 
         $this->assertEquals(
             Response::HTTP_OK,

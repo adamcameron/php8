@@ -20,14 +20,17 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    adamcameron\php8\Adapter\AddressService\Adapter:
+    adamcameron\php8\Adapter\GetAddress\Adapter:
         public: true
         arguments:
             $apiKey: '%env(ADDRESS_SERVICE_API_KEY)%'
-            $client: '@Symfony\Component\HttpClient\HttpClient'
+            $client: '@Symfony\Contracts\HttpClient\HttpClientInterface'
 
-    Symfony\Component\HttpClient\HttpClient:
+    Symfony\Contracts\HttpClient\HttpClientInterface:
         factory: ['\Symfony\Component\HttpClient\HttpClient','create']
+
+    adamcameron\php8\Service\PostcodeLookupService:
+        public: true
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

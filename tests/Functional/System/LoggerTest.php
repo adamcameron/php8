@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /** @testdox Tests the logging config */
 class LoggerTest extends TestCase
 {
-    /** @testdox It writes AddressService entries to the expected log file */
+    /** @testdox It writes GetAddress entries to the expected log file */
     public function testAddressServiceLogFile()
     {
         $kernel = new Kernel("test", false);

@@ -2,8 +2,8 @@
 
 namespace adamcameron\php8\tests\Integration\Adapter\AddressService;
 
-use adamcameron\php8\Adapter\AddressService\Adapter as AddressServiceAdapter;
-use adamcameron\php8\tests\Fixtures\AddressService\TestConstants;
+use adamcameron\php8\Adapter\GetAddress\Adapter as AddressServiceAdapter;
+use adamcameron\php8\tests\Fixtures\GetAddress\TestConstants;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
