@@ -2,12 +2,14 @@
 
 namespace adamcameron\php8\Adapter\GetAddress;
 
-use adamcameron\php8\Adapter\GetAddress;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterException;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterInterface;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class Adapter
+class Adapter implements AdapterInterface
 {
     public const ERROR_MESSAGES = [
         HttpFoundationResponse::HTTP_UNAUTHORIZED => "API key is not valid",
@@ -31,7 +33,7 @@ class Adapter
     {
     }
 
-    public function get(string $postCode) : GetAddress\Response
+    public function get(string $postCode) : AdapterResponse
     {
         $response = $this->makeRequest($postCode);
         $lookupResult = $this->extractValidLookupResult($response);
@@ -54,19 +56,19 @@ class Adapter
         $statusCode = $response->getStatusCode();
 
         if (!in_array($statusCode, self::SUPPORTED_SERVICE_RESPONSES)) {
-            throw new GetAddress\Exception("Unexpected status code returned: $statusCode");
+            throw new AdapterException("Unexpected status code returned: $statusCode");
         }
 
         $body = $response->getContent(false);
         $lookupResult = json_decode($body, JSON_OBJECT_AS_ARRAY);
         if (json_last_error() != JSON_ERROR_NONE) {
-            throw new GetAddress\Exception(
+            throw new AdapterException(
                 sprintf("json_decode returned [%s]", json_last_error_msg())
             );
         }
 
         if (!is_array($lookupResult)) {
-            throw new GetAddress\Exception("Response JSON schema is not valid");
+            throw new AdapterException("AdapterResponse JSON schema is not valid");
         }
         return $lookupResult;
     }
@@ -74,7 +76,7 @@ class Adapter
     private function handleValidatedResponse(
         ResponseInterface $response,
         array $lookupResult
-    ): GetAddress\Response {
+    ): AdapterResponse {
         $statusCode = $response->getStatusCode();
 
         if ($statusCode == HttpFoundationResponse::HTTP_OK) {
@@ -83,17 +85,17 @@ class Adapter
         return $this->handleFailureResponse($lookupResult, $statusCode);
     }
 
-    private function handleSuccessResponse(array $lookupResult): GetAddress\Response
+    private function handleSuccessResponse(array $lookupResult): AdapterResponse
     {
         if (
             !array_key_exists("addresses", $lookupResult)
             || !is_array($lookupResult["addresses"])
             || count(array_filter($lookupResult["addresses"], fn($address) => !is_string($address)))
         ) {
-            throw new GetAddress\Exception("Response JSON schema is not valid");
+            throw new AdapterException("AdapterResponse JSON schema is not valid");
         }
 
-        return new GetAddress\Response(
+        return new AdapterResponse(
             $lookupResult["addresses"],
             HttpFoundationResponse::HTTP_OK
         );
@@ -102,10 +104,10 @@ class Adapter
     private function handleFailureResponse(
         array $lookupResult,
         int $statusCode
-    ): GetAddress\Response {
+    ): AdapterResponse {
         if (array_key_exists("Message", $lookupResult) && is_string($lookupResult["Message"])) {
-            return new GetAddress\Response([], $statusCode, $lookupResult["Message"]);
+            return new AdapterResponse([], $statusCode, $lookupResult["Message"]);
         }
-        return new GetAddress\Response([], $statusCode, "No failure message returned from service");
+        return new AdapterResponse([], $statusCode, "No failure message returned from service");
     }
 }

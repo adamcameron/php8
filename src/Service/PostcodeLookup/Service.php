@@ -1,13 +1,16 @@
 <?php
 
-namespace adamcameron\php8\Service;
+namespace adamcameron\php8\Service\PostcodeLookup;
 
 use adamcameron\php8\Adapter\GetAddress;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterException;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterInterface;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterResponse;
 use Monolog\Level;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response as HttpStatusCode;
 
-class PostcodeLookupService
+class Service implements ServiceInterface
 {
     private const RESPONSES_TO_LOG = [
         HttpStatusCode::HTTP_UNAUTHORIZED => Level::Critical,
@@ -17,21 +20,21 @@ class PostcodeLookupService
     ];
 
     public function __construct(
-        private readonly GetAddress\Adapter $adapter,
-        private readonly LoggerInterface $addressServiceLogger
+        private readonly AdapterInterface $adapter,
+        private readonly LoggerInterface  $addressServiceLogger
     ) {
     }
 
-    public function lookup(string $postcode): GetAddress\Response
+    public function lookup(string $postcode): AdapterResponse
     {
         try {
             return $this->getAddresses($postcode);
-        } catch (GetAddress\Exception $e) {
+        } catch (AdapterException $e) {
             return $this->handleAdapterException($e, $postcode);
         }
     }
 
-    private function getAddresses(string $postcode): GetAddress\Response
+    private function getAddresses(string $postcode): AdapterResponse
     {
         $response = $this->adapter->get($postcode);
 
@@ -41,7 +44,7 @@ class PostcodeLookupService
     }
 
     private function logUnexpectedFailures(
-        GetAddress\Response $response,
+        AdapterResponse $response,
         string $postcode
     ): void {
         $statusCode = $response->getHttpStatus();
@@ -56,16 +59,16 @@ class PostcodeLookupService
     }
 
     private function handleAdapterException(
-        GetAddress\Exception|\Exception $e,
+        AdapterException $e,
         string $postcode
-    ): GetAddress\Response {
+    ): AdapterResponse {
         $this->addressServiceLogger->log(
             Level::Error,
             $e->getMessage(),
             ['postcode' => $postcode, 'message' => $e->getMessage()]
         );
 
-        return new GetAddress\Response(
+        return new AdapterResponse(
             [],
             HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR,
             $e->getMessage()

@@ -2,14 +2,14 @@
 
 namespace adamcameron\php8\Controller;
 
-use adamcameron\php8\Service\PostcodeLookupService;
+use adamcameron\php8\Service\PostcodeLookup\ServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PostcodeLookupController extends AbstractController
 {
 
-    public function __construct(private readonly PostcodeLookupService $postcodeLookupService)
+    public function __construct(private readonly ServiceInterface $postcodeLookupService)
     {
     }
 

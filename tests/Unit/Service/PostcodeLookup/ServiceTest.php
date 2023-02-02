@@ -1,10 +1,12 @@
 <?php
 
-namespace Service;
+namespace adamcameron\php8\tests\Unit\Service\PostcodeLookup;
 
 use adamcameron\php8\Adapter\GetAddress;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterException;
+use adamcameron\php8\Adapter\PostcodeLookupService\AdapterResponse;
 use adamcameron\php8\Kernel;
-use adamcameron\php8\Service\PostcodeLookupService;
+use adamcameron\php8\Service\PostcodeLookup\Service as PostcodeLookupService;
 use adamcameron\php8\tests\Fixtures\GetAddress\TestConstants;
 use Monolog\Handler\TestHandler;
 use Monolog\Level;
@@ -12,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @testdox Tests of the PostcodeLookupService */
-class PostcodeLookupServiceTest extends TestCase
+/** @testdox Tests of the Service */
+class ServiceTest extends TestCase
 {
     /**
      * @testdox It logs any issues we might need to deal with
@@ -73,7 +75,7 @@ class PostcodeLookupServiceTest extends TestCase
         ];
     }
 
-    /** @testdox It logs unhandled exceptions and returns an empty Response */
+    /** @testdox It logs unhandled exceptions and returns an empty AdapterResponse */
     public function testExceptionHandling()
     {
         $expectedMessage = "TEST_EXCEPTION_MESSAGE";
@@ -95,7 +97,7 @@ class PostcodeLookupServiceTest extends TestCase
         );
 
         $this->assertEquals(
-            new GetAddress\Response([], Response::HTTP_INTERNAL_SERVER_ERROR, $expectedMessage),
+            new AdapterResponse([], Response::HTTP_INTERNAL_SERVER_ERROR, $expectedMessage),
             $response
         );
     }
@@ -128,7 +130,7 @@ class PostcodeLookupServiceTest extends TestCase
         $mockedAddressServiceAdapter
             ->expects($this->once())
             ->method('get')
-            ->willReturn(new GetAddress\Response(
+            ->willReturn(new AdapterResponse(
                 [],
                 $statusCode,
                 $expectedMessage
@@ -136,8 +138,10 @@ class PostcodeLookupServiceTest extends TestCase
         $container->set(GetAddress\Adapter::class, $mockedAddressServiceAdapter);
     }
 
-    private function configureContainerWithErroringAdapter(ContainerInterface $container, string $expectedMessage)
-    {
+    private function configureContainerWithErroringAdapter(
+        ContainerInterface $container,
+        string $expectedMessage
+    ) {
         $mockedAddressServiceAdapter = $this
             ->getMockBuilder(GetAddress\Adapter::class)
             ->disableOriginalConstructor()
@@ -146,7 +150,7 @@ class PostcodeLookupServiceTest extends TestCase
         $mockedAddressServiceAdapter
             ->expects($this->once())
             ->method('get')
-            ->willThrowException(new GetAddress\Exception($expectedMessage));
+            ->willThrowException(new AdapterException($expectedMessage));
         $container->set(GetAddress\Adapter::class, $mockedAddressServiceAdapter);
     }
 

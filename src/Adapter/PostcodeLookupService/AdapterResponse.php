@@ -1,8 +1,8 @@
 <?php
 
-namespace adamcameron\php8\Adapter\GetAddress;
+namespace adamcameron\php8\Adapter\PostcodeLookupService;
 
-readonly class Response
+readonly class AdapterResponse
 {
     public function __construct(
         private array $addresses,
