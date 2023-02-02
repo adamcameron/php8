@@ -27,7 +27,6 @@ class DbLoggingTest extends TestCase
 
         $result = $connection->executeQuery("SELECT * FROM numbers WHERE id = ?", [5]);
 
-
         $this->assertEquals([5, 'five', 'rima'], $result->fetchNumeric());
 
         $withSql = array_filter($testHandler->getRecords(), function ($record) {
