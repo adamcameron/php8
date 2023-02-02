@@ -26,7 +26,6 @@ class PostcodeLookupControllerTest extends WebTestCase
         );
         $response = $this->client->getResponse();
 
-
         $this->assertEquals(
             Response::HTTP_OK,
             $response->getStatusCode()
