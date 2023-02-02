@@ -130,5 +130,4 @@ class EnumTest extends TestCase
             serialize(MI::TAHI)
         );
     }
-
 }
