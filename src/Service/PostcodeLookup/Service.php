@@ -21,7 +21,7 @@ class Service implements ServiceInterface
 
     public function __construct(
         private readonly AdapterInterface $adapter,
-        private readonly LoggerInterface  $addressServiceLogger
+        private readonly LoggerInterface $addressServiceLogger
     ) {
     }
 

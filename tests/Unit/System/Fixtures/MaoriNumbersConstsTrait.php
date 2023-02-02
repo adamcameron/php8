@@ -4,7 +4,8 @@ namespace adamcameron\php8\tests\Unit\System\Fixtures;
 
 use adamcameron\php8\tests\Unit\System\Fixtures\MaoriNumbers as MI;
 
-trait MaoriNumbersConstsTrait {
+trait MaoriNumbersConstsTrait
+{
     public const ONE = MI::TAHI;
     public const TWO = MI::RUA;
     public const THREE = MI::TORU;

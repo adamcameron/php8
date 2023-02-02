@@ -2,7 +2,8 @@
 
 namespace adamcameron\php8\tests\Unit\System\Fixtures;
 
-enum MaoriNumbers : int {
+enum MaoriNumbers : int
+{
     case TAHI = 1;
     case RUA = 2;
     case TORU = 3;
@@ -16,7 +17,7 @@ enum MaoriNumbers : int {
 
     use MaoriNumbersConstsTrait;
 
-    private CONST EN = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+    private const EN = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
     public function toEnglish() : string
     {
@@ -30,7 +31,7 @@ enum MaoriNumbers : int {
 
     public function getParity() : string
     {
-        return match($this) {
+        return match ($this) {
             self::TAHI, self::TORU, self::RIMA, self::WHITU, self::IWA => "odd",
             self::RUA, self::WHĀ, self::ONO, self::WARU, self::TEKAU => "even"
         };
