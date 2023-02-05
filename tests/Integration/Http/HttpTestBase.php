@@ -5,7 +5,7 @@ namespace adamcameron\php8\tests\Integration\Http;
 use PHPUnit\Framework\TestCase;
 
 /** @testdox Tests of HTTP request functionality */
-abstract class HttpTest extends TestCase
+abstract class HttpTestBase extends TestCase
 {
 
     protected function getUserAgentForCurl(): string

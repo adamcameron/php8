@@ -5,7 +5,7 @@ namespace adamcameron\php8\tests\Integration\Http;
 use Symfony\Component\HttpClient\HttpClient;
 
 /** @testdox Tests of Symfony's HTTP client functionality */
-class SymfonyHttpClientTest extends HttpTest
+class SymfonyHttpClientTest extends HttpTestBase
 {
 
     /** @testdox It can make a GET request */

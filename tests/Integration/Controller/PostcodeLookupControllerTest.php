@@ -32,7 +32,7 @@ class PostcodeLookupControllerTest extends WebTestCase
         );
 
         $result = json_decode($response->getContent(), false);
-        $this->assertObjectHasAttribute('addresses', $result);
+        $this->assertTrue(property_exists($result, 'addresses'));
         $this->assertGreaterThanOrEqual(1, count($result->addresses));
     }
 
@@ -53,7 +53,7 @@ class PostcodeLookupControllerTest extends WebTestCase
         $this->assertEquals($statusCode, $response->getStatusCode());
 
         $result = json_decode($response->getContent(), false);
-        $this->assertObjectHasAttribute('addresses', $result);
+        $this->assertTrue(property_exists($result, 'addresses'));
         $this->assertEmpty($result->addresses);
     }
 

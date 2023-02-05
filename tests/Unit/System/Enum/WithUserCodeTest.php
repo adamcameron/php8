@@ -1,13 +1,15 @@
 <?php
 
-namespace System\Enum;
+namespace adamcameron\php8\tests\Unit\System\Enum;
 
 use adamcameron\php8\tests\Unit\System\Fixtures\MaoriNumbers as MI;
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
 
 /** @testdox Testing use of enums */
 class WithUserCodeTest extends TestCase
 {
+    use CustomAssertionsTrait;
 
     /** @testdox It can have static methods */
     public function testStaticMethods()
@@ -30,9 +32,12 @@ class WithUserCodeTest extends TestCase
     /** @testdox It cannot be type-coerced */
     public function testTypeCoercion()
     {
-        $this->expectError(); // NB: not an exception; an error
-        $this->expectErrorMessageMatches("/.*MaoriNumbers could not be converted to int.*/");
-        $this->assertEquals(sprintf("ono: %d", MI::ONO), "ono: 6");
+        $this->assertError(
+            function () {
+                $this->assertEquals(sprintf("ono: %d", MI::ONO), "ono: 6");
+            },
+            "MaoriNumbers could not be converted to int"
+        );
     }
 
     /** @testdox It can be used in a match expression */

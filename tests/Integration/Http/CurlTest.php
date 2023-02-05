@@ -3,7 +3,7 @@
 namespace adamcameron\php8\tests\Integration\Http;
 
 /** @testdox Tests of Curl functionality */
-class CurlTest extends HttpTest
+class CurlTest extends HttpTestBase
 {
     /** @testdox It can make a GET request */
     public function testGet()

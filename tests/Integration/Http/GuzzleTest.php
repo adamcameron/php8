@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 
 /** @testdox Tests of Guzzle functionality */
-class GuzzleTest extends HttpTest
+class GuzzleTest extends HttpTestBase
 {
     /** @testdox It can make a GET request */
     public function testGet()

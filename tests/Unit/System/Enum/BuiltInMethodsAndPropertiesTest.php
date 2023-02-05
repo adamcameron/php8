@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Enum;
+namespace adamcameron\php8\tests\Unit\System\Enum;
 
 use adamcameron\php8\tests\Unit\System\Fixtures\MaoriNumbers as MI;
 use PHPUnit\Framework\TestCase;
@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 /** @testdox Testing built-in methods of enums */
 class BuiltInMethodsAndPropertiesTest extends TestCase
 {
+    use CustomAssertionsTrait;
 
     /** @testdox Its name can be returned */
     public function testGetName()
@@ -30,9 +31,12 @@ class BuiltInMethodsAndPropertiesTest extends TestCase
     /** @testdox It has a from method that throws an exception */
     public function testFromException()
     {
-        $this->expectError(\ValueError ::class);
-        $this->expectErrorMessage();
-        MI::from(0);
+        $this->assertError(
+            function () {
+                MI::from(0);
+            },
+            sprintf("0 is not a valid backing value for enum %s", MI::CLASS)
+        );
     }
 
     /** @testdox It has a tryFrom method */
