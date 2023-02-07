@@ -1,4 +1,4 @@
-FROM php:8.2.1-fpm
+FROM php:fpm
 
 RUN ["apt-get", "update"]
 RUN ["apt-get", "install", "-y", "zip", "unzip", "git", "vim"]

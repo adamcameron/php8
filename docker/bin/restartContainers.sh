@@ -9,7 +9,7 @@
 # bin/restartContainers.sh
 
 clear; printf "\033[3J"
-docker-compose stop
-docker-compose up --detach nginx
-docker-compose up --detach php
-docker-compose up --detach mariadb
+docker compose stop
+docker compose up --detach nginx
+docker compose up --detach php
+docker compose up --detach mariadb

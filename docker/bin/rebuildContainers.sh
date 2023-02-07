@@ -8,6 +8,6 @@
 # bin/rebuildContainers.sh
 
 clear; printf "\033[3J"
-docker-compose down --remove-orphans --volumes
-docker-compose build --no-cache
-docker-compose up --force-recreate --detach
+docker compose down --remove-orphans --volumes
+docker compose build --no-cache
+docker compose up --force-recreate --detach
