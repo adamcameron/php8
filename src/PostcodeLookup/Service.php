@@ -1,11 +1,7 @@
 <?php
 
-namespace adamcameron\php8\Service\PostcodeLookup;
+namespace adamcameron\php8\PostcodeLookup;
 
-use adamcameron\php8\Adapter\GetAddress;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterException;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterInterface;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterResponse;
 use Monolog\Level;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response as HttpStatusCode;
@@ -52,7 +48,7 @@ class Service implements ServiceInterface
         if (array_key_exists($statusCode, self::RESPONSES_TO_LOG)) {
             $this->addressServiceLogger->log(
                 self::RESPONSES_TO_LOG[$statusCode],
-                GetAddress\Adapter::ERROR_MESSAGES[$statusCode],
+                GetAddressAdapter::ERROR_MESSAGES[$statusCode],
                 ['postcode' => $postcode, 'message' => $response->getMessage()]
             );
         }

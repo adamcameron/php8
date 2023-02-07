@@ -2,7 +2,7 @@
 
 namespace adamcameron\php8\tests\Integration\Controller;
 
-use adamcameron\php8\tests\Fixtures\GetAddress\TestConstants;
+use adamcameron\php8\tests\Fixtures\PostcodeLookup\TestConstants;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,7 +57,7 @@ class PostcodeLookupControllerTest extends WebTestCase
         $this->assertEmpty($result->addresses);
     }
 
-    public function provideCasesForClientErrorTests() : array
+    public function provideCasesForClientErrorTests(): array
     {
         return [
             "Invalid postcode returns BAD REQUEST" => [

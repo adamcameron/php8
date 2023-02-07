@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\tests\Fixtures\GetAddress;
+namespace adamcameron\php8\tests\Fixtures\PostcodeLookup;
 
 class TestConstants
 {

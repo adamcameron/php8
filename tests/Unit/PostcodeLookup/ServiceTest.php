@@ -1,13 +1,13 @@
 <?php
 
-namespace adamcameron\php8\tests\Unit\Service\PostcodeLookup;
+namespace adamcameron\php8\tests\Unit\PostcodeLookup;
 
-use adamcameron\php8\Adapter\GetAddress;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterException;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterResponse;
 use adamcameron\php8\Kernel;
-use adamcameron\php8\Service\PostcodeLookup\Service as PostcodeLookupService;
-use adamcameron\php8\tests\Fixtures\GetAddress\TestConstants;
+use adamcameron\php8\PostcodeLookup\AdapterException;
+use adamcameron\php8\PostcodeLookup\AdapterResponse;
+use adamcameron\php8\PostcodeLookup\GetAddressAdapter;
+use adamcameron\php8\PostcodeLookup\Service as PostcodeLookupService;
+use adamcameron\php8\tests\Fixtures\PostcodeLookup\TestConstants;
 use Monolog\Handler\TestHandler;
 use Monolog\Level;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +49,7 @@ class ServiceTest extends TestCase
         );
     }
 
-    public function provideCasesForLoggingTests() : array
+    public function provideCasesForLoggingTests(): array
     {
         return [
             "Unauthorized should log critical" => [
@@ -102,7 +102,7 @@ class ServiceTest extends TestCase
         );
     }
 
-    private function getContainer() : ContainerInterface
+    private function getContainer(): ContainerInterface
     {
         $kernel = new Kernel("test", false);
         $kernel->boot();
@@ -123,19 +123,21 @@ class ServiceTest extends TestCase
         string $expectedMessage,
     ) {
         $mockedAddressServiceAdapter = $this
-            ->getMockBuilder(GetAddress\Adapter::class)
+            ->getMockBuilder(GetAddressAdapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['get'])
             ->getMock();
         $mockedAddressServiceAdapter
             ->expects($this->once())
             ->method('get')
-            ->willReturn(new AdapterResponse(
-                [],
-                $statusCode,
-                $expectedMessage
-            ));
-        $container->set(GetAddress\Adapter::class, $mockedAddressServiceAdapter);
+            ->willReturn(
+                new AdapterResponse(
+                    [],
+                    $statusCode,
+                    $expectedMessage
+                )
+            );
+        $container->set(GetAddressAdapter::class, $mockedAddressServiceAdapter);
     }
 
     private function configureContainerWithErroringAdapter(
@@ -143,7 +145,7 @@ class ServiceTest extends TestCase
         string $expectedMessage
     ) {
         $mockedAddressServiceAdapter = $this
-            ->getMockBuilder(GetAddress\Adapter::class)
+            ->getMockBuilder(GetAddressAdapter::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['get'])
             ->getMock();
@@ -151,7 +153,7 @@ class ServiceTest extends TestCase
             ->expects($this->once())
             ->method('get')
             ->willThrowException(new AdapterException($expectedMessage));
-        $container->set(GetAddress\Adapter::class, $mockedAddressServiceAdapter);
+        $container->set(GetAddressAdapter::class, $mockedAddressServiceAdapter);
     }
 
     public function assertLogEntryIsCorrect(
@@ -164,8 +166,8 @@ class ServiceTest extends TestCase
         $this->assertCount(1, $logRecords);
         $this->assertEquals($expectedLogLevel->getName(), $logRecords[0]["level_name"]);
 
-        $expectedLogMessage = array_key_exists($statusCode, GetAddress\Adapter::ERROR_MESSAGES)
-            ? GetAddress\Adapter::ERROR_MESSAGES[$statusCode]
+        $expectedLogMessage = array_key_exists($statusCode, GetAddressAdapter::ERROR_MESSAGES)
+            ? GetAddressAdapter::ERROR_MESSAGES[$statusCode]
             : $expectedMessage;
 
         $this->assertEquals(

@@ -20,7 +20,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    adamcameron\php8\Adapter\GetAddress\Adapter:
+    adamcameron\php8\PostcodeLookup\GetAddressAdapter:
         public: true
         arguments:
             $apiKey: '%env(ADDRESS_SERVICE_API_KEY)%'
@@ -29,10 +29,10 @@ services:
     Symfony\Contracts\HttpClient\HttpClientInterface:
         factory: ['\Symfony\Component\HttpClient\HttpClient','create']
 
-    adamcameron\php8\Service\PostcodeLookup\Service:
+    adamcameron\php8\PostcodeLookup\Service:
         public: true
         arguments:
-            $adapter: '@adamcameron\php8\Adapter\GetAddress\Adapter'
+            $adapter: '@adamcameron\php8\PostcodeLookup\GetAddressAdapter'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -42,7 +42,7 @@ services:
 
     adamcameron\php8\Controller\PostcodeLookupController:
         arguments:
-            $postcodeLookupService: '@adamcameron\php8\Service\PostcodeLookup\Service'
+            $postcodeLookupService: '@adamcameron\php8\PostcodeLookup\Service'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

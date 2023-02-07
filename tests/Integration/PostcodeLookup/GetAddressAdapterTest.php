@@ -1,22 +1,22 @@
 <?php
 
-namespace adamcameron\php8\tests\Integration\Adapter\GetAddress;
+namespace adamcameron\php8\tests\Integration\PostcodeLookup;
 
-use adamcameron\php8\Adapter\GetAddress\Adapter as AddressServiceAdapter;
-use adamcameron\php8\tests\Fixtures\GetAddress\TestConstants;
+use adamcameron\php8\PostcodeLookup\GetAddressAdapter;
+use adamcameron\php8\tests\Fixtures\PostcodeLookup\TestConstants;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @testdox Tests of the Adapter */
-class AdapterTest extends TestCase
+/** @testdox Tests of the GetAddressAdapter */
+class GetAddressAdapterTest extends TestCase
 {
     private $adapter;
 
     protected function setUp(): void
     {
         $client = HttpClient::create();
-        $this->adapter = new AddressServiceAdapter(getenv("ADDRESS_SERVICE_API_KEY"), $client);
+        $this->adapter = new GetAddressAdapter(getenv("ADDRESS_SERVICE_API_KEY"), $client);
     }
 
     /** @testdox It can get addresses from a valid postcode */

@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\Adapter\PostcodeLookupService;
+namespace adamcameron\php8\PostcodeLookup;
 
 readonly class AdapterResponse
 {
@@ -11,17 +11,17 @@ readonly class AdapterResponse
     ) {
     }
 
-    public function getAddresses() : array
+    public function getAddresses(): array
     {
         return $this->addresses;
     }
 
-    public function getHttpStatus() : int
+    public function getHttpStatus(): int
     {
         return $this->httpStatus;
     }
 
-    public function getMessage() : string
+    public function getMessage(): string
     {
         return $this->message;
     }

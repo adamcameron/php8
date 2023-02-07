@@ -1,18 +1,18 @@
 <?php
 
-namespace adamcameron\php8\tests\Unit\Adapter\GetAddress;
+namespace adamcameron\php8\tests\Unit\PostcodeLookup;
 
-use adamcameron\php8\Adapter\GetAddress\Adapter as GetAddressAdapter;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterInterface;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterException as GetAddressException;
+use adamcameron\php8\PostcodeLookup\AdapterException;
+use adamcameron\php8\PostcodeLookup\AdapterInterface;
+use adamcameron\php8\PostcodeLookup\GetAddressAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/** @testdox Tests of the GetAddress\Adapter */
-class AdapterTest extends TestCase
+/** @testdox Tests of the GetAddress\GetAddressAdapter */
+class GetAddressAdapterTest extends TestCase
 {
     /** @testdox It throws an GetAddress\AdapterException if the getaddress.io call returns an unexpected status */
     public function testThrowsExceptionOnUnexpectedStatus()
@@ -20,7 +20,7 @@ class AdapterTest extends TestCase
         $statusToReturn = Response::HTTP_NOT_IMPLEMENTED;
 
         $this->assertCorrectExceptionThrown(
-            GetAddressException::class,
+            AdapterException::class,
             "Unexpected status code returned: $statusToReturn"
         );
 
@@ -33,7 +33,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnBodyNotJson()
     {
         $this->assertCorrectExceptionThrown(
-            GetAddressException::class,
+            AdapterException::class,
             "json_decode returned [Syntax error]"
         );
 
@@ -46,7 +46,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnResultNotArray()
     {
         $this->assertCorrectExceptionThrown(
-            GetAddressException::class,
+            AdapterException::class,
             "AdapterResponse JSON schema is not valid"
         );
 
@@ -59,7 +59,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnNoAddressData()
     {
         $this->assertCorrectExceptionThrown(
-            GetAddressException::class,
+            AdapterException::class,
             "AdapterResponse JSON schema is not valid"
         );
 
@@ -75,7 +75,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnAddressDataNotArray()
     {
         $this->assertCorrectExceptionThrown(
-            GetAddressException::class,
+            AdapterException::class,
             "AdapterResponse JSON schema is not valid"
         );
 
@@ -91,7 +91,7 @@ class AdapterTest extends TestCase
     public function testThrowsExceptionOnAddressDataNotArrayOfStrings()
     {
         $this->assertCorrectExceptionThrown(
-            GetAddressException::class,
+            AdapterException::class,
             "AdapterResponse JSON schema is not valid"
         );
 

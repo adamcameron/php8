@@ -1,6 +1,6 @@
 <?php
 
-namespace adamcameron\php8\Adapter\PostcodeLookupService;
+namespace adamcameron\php8\PostcodeLookup;
 
 interface AdapterInterface
 {

@@ -1,20 +1,17 @@
 <?php
 
-namespace adamcameron\php8\Adapter\GetAddress;
+namespace adamcameron\php8\PostcodeLookup;
 
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterException;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterInterface;
-use adamcameron\php8\Adapter\PostcodeLookupService\AdapterResponse;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class Adapter implements AdapterInterface
+class GetAddressAdapter implements AdapterInterface
 {
     public const ERROR_MESSAGES = [
         HttpFoundationResponse::HTTP_UNAUTHORIZED => "API key is not valid",
         HttpFoundationResponse::HTTP_FORBIDDEN => "Permission denied",
-        HttpFoundationResponse::HTTP_TOO_MANY_REQUESTS  => "Too many requests",
+        HttpFoundationResponse::HTTP_TOO_MANY_REQUESTS => "Too many requests",
         HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR => "Server error"
     ];
 
@@ -33,7 +30,7 @@ class Adapter implements AdapterInterface
     {
     }
 
-    public function get(string $postCode) : AdapterResponse
+    public function get(string $postCode): AdapterResponse
     {
         $response = $this->makeRequest($postCode);
         $lookupResult = $this->extractValidLookupResult($response);
