@@ -5,7 +5,10 @@ namespace adamcameron\php8\tests\Integration\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 
-/** @testdox Tests of Guzzle functionality */
+/**
+ * @testdox Tests of Guzzle functionality
+ * @group slow
+ */
 class GuzzleTest extends HttpTestBase
 {
     /** @testdox It can make a GET request */
@@ -63,7 +66,7 @@ class GuzzleTest extends HttpTestBase
 
         array_walk($responses, function ($response, $i) {
             $this->assertEquals(200, $response->getStatusCode());
-            $this->assertEquals(sprintf("waited %d seconds", $i+1), $response->getBody());
+            $this->assertEquals(sprintf("waited %d seconds", $i + 1), $response->getBody());
         });
     }
 

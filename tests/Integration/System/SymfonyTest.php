@@ -1,6 +1,7 @@
 <?php
 
 namespace adamcameron\php8\tests\Integration\System;
+
 use \DOMDocument;
 use \DOMXPath;
 use GuzzleHttp\Client;
@@ -8,13 +9,15 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @testdox Tests of Symfony installation */
+/**
+ * @testdox Tests of Symfony installation
+ * @group slow
+ */
 class SymfonyTest extends TestCase
 {
     /** @testdox It serves the default welcome page after installation */
     public function testSymfonyWelcomeScreenDisplays()
     {
-
         $client = new Client([
             'base_uri' => 'http://nginx/'
         ]);

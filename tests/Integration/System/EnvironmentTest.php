@@ -5,11 +5,12 @@ namespace adamcameron\php8\tests\Integration\System;
 use \Generator;
 use PHPUnit\Framework\TestCase;
 
+/** @testdox Tests of environment variables */
 class EnvironmentTest extends TestCase
 {
     /**
      * @testdox The expected environment variables exist
-     * @dataProvider expectedEnvironmentVariablesProvider
+     * @dataProvider provideCasesForEnvironmentVariablesTest
      */
     public function testEnvironmentVariables(string $expectedEnvironmentVariable)
     {
@@ -19,7 +20,7 @@ class EnvironmentTest extends TestCase
         );
     }
 
-    public function expectedEnvironmentVariablesProvider() : Generator
+    public static function provideCasesForEnvironmentVariablesTest(): Generator
     {
         $varNames = [
             "MARIADB_HOST",

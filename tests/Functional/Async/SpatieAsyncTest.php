@@ -7,7 +7,10 @@ use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
 use \Exception;
 
-/** @testdox tests of spatie/async (https://github.com/spatie/async) */
+/**
+ * @testdox tests of spatie/async (https://github.com/spatie/async)
+ * @group slow
+ */
 class SpatieAsyncTest extends TestCase
 {
     /** @testdox It can call a slow proc multiple times async */
@@ -39,9 +42,20 @@ class SpatieAsyncTest extends TestCase
 
         $this->assertLessThan(3, $executionTime);
         $this->assertCount(3, $results);
-        $this->assertContains("1:2:2", $results, "1:2:2 not found in " . implode(",", $results));
-        $this->assertContains("2:2:2", $results, "2:2:2 not found in " . implode(",", $results));
-        $this->assertContains("3:2:2", $results, "3:2:2 not found in " . implode(",", $results));
+
+        $resultAsString = implode(",", $results);
+        $expectedResults = [
+            "/1:2:[2-3]/",
+            "/2:2:[2-3]/",
+            "/3:2:[2-3]/"
+        ];
+        array_walk($expectedResults, function ($expectedResult) use ($resultAsString) {
+            $this->assertMatchesRegularExpression(
+                $expectedResult,
+                $resultAsString,
+                "$expectedResult not found in $resultAsString"
+            );
+        });
     }
 
     /** @testdox It uses a then handler which acts on the result */

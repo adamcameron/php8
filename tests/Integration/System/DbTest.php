@@ -7,7 +7,10 @@ use Doctrine\DBAL\Connection;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/** @testdox Database tests */
+/**
+ * @testdox Database tests
+ * @group slow
+ */
 class DbTest extends TestCase
 {
     private const MARIADB_MAJOR_VERSION = 10;
@@ -29,6 +32,7 @@ class DbTest extends TestCase
 
         $this->assertStringStartsWith(self::MARIADB_MAJOR_VERSION, $result->fetchOne());
     }
+
     /** @testdox it can retrieve multiple records in one hit */
     public function testMultipleRecords()
     {

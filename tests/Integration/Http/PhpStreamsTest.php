@@ -2,7 +2,10 @@
 
 namespace adamcameron\php8\tests\Integration\Http;
 
-/** @testdox Tests of PHP streams functionality relating to HTTP requests */
+/**
+ * @testdox Tests of PHP streams functionality relating to HTTP requests
+ * @group slow
+ */
 class PhpStreamsTest extends HttpTestBase
 {
     /** @testdox It can make a GET request */

@@ -49,7 +49,7 @@ class ServiceTest extends TestCase
         );
     }
 
-    public function provideCasesForLoggingTests(): array
+    public static function provideCasesForLoggingTests(): array
     {
         return [
             "Unauthorized should log critical" => [

@@ -4,7 +4,10 @@ namespace adamcameron\php8\tests\Integration\Http;
 
 use Symfony\Component\HttpClient\HttpClient;
 
-/** @testdox Tests of Symfony's HTTP client functionality */
+/**
+ * @testdox Tests of Symfony's HTTP client functionality
+ * @group slow
+ */
 class SymfonyHttpClientTest extends HttpTestBase
 {
 

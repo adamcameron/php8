@@ -11,7 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/** @testdox Tests of the GetAddress\GetAddressAdapter */
+/**
+ * @testdox Tests of GetAddressAdapter
+ * @group slow
+ */
 class GetAddressAdapterTest extends TestCase
 {
     /** @testdox It throws an GetAddress\AdapterException if the getaddress.io call returns an unexpected status */

@@ -7,7 +7,10 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @testdox Tests of the PostcodeLookupController */
+/**
+ * @testdox Tests of the PostcodeLookupController
+ * @group slow
+ */
 class PostcodeLookupControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
@@ -57,7 +60,7 @@ class PostcodeLookupControllerTest extends WebTestCase
         $this->assertEmpty($result->addresses);
     }
 
-    public function provideCasesForClientErrorTests(): array
+    public static function provideCasesForClientErrorTests(): array
     {
         return [
             // getaddress is misbehaving on 400s at the moment

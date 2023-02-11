@@ -5,7 +5,10 @@ namespace adamcameron\php8\tests\Integration\Database;
 use adamcameron\php8\tests\Integration\Fixtures\Database as DB;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests Database objects */
+/**
+ * @testdox Tests Database objects
+ * @group slow
+ */
 class ProcTest extends TestCase
 {
     /** @testdox It has a proc called sleep_and_return which idles for n seconds before returning its parameter value */

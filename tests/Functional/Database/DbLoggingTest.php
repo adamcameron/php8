@@ -9,7 +9,10 @@ use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests Database objects */
+/**
+ * @testdox Tests Database objects
+ * @group slow
+ */
 class DbLoggingTest extends TestCase
 {
     /** @testdox It can log SQL traffic */

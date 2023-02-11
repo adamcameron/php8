@@ -2,7 +2,10 @@
 
 namespace adamcameron\php8\tests\Integration\Http;
 
-/** @testdox Tests of Curl functionality */
+/**
+ * @testdox Tests of Curl functionality
+ * @group slow
+ */
 class CurlTest extends HttpTestBase
 {
     /** @testdox It can make a GET request */

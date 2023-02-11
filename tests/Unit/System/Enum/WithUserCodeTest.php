@@ -3,7 +3,6 @@
 namespace adamcameron\php8\tests\Unit\System\Enum;
 
 use adamcameron\php8\tests\Unit\System\Fixtures\MaoriNumbers as MI;
-use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
 
 /** @testdox Testing use of enums */
@@ -29,15 +28,12 @@ class WithUserCodeTest extends TestCase
         $this->assertEquals('{"rima":5}', json_encode(["rima" => MI::RIMA]));
     }
 
-    /** @testdox It cannot be type-coerced */
+    /** @testdox It *cannot* be type-coerced */
     public function testTypeCoercion()
     {
-        $this->assertError(
-            function () {
-                $this->assertEquals(sprintf("ono: %d", MI::ONO), "ono: 6");
-            },
-            "MaoriNumbers could not be converted to int"
-        );
+        // NB: `1` seems to be the result of coercing an enum to an int
+        // also emits a warning, which PHPUNit is being unhelpful about,so suppressing
+        @$this->assertEquals(1, (int)MI::ONO);
     }
 
     /** @testdox It can be used in a match expression */

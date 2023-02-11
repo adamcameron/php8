@@ -8,7 +8,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @testdox Tests of the GetAddressAdapter */
+/**
+ * @testdox Tests of the GetAddressAdapter
+ * @group slow
+ */
 class GetAddressAdapterTest extends TestCase
 {
     private $adapter;
@@ -29,7 +32,7 @@ class GetAddressAdapterTest extends TestCase
         $this->assertEmpty($response->getMessage());
     }
 
-    public function provideErrorTestCases(): array
+    public static function provideErrorTestCases(): array
     {
         return [
             // getaddress is misbehaving on 400s at the moment
