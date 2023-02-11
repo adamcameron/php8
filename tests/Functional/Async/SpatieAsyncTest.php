@@ -127,7 +127,7 @@ class SpatieAsyncTest extends TestCase
         $this->assertEquals([], $results);
     }
 
-    /** @testdox it supports exception handling */
+    /** @testdox It supports exception handling */
     public function testAsyncException()
     {
         $pool = Pool::create();
