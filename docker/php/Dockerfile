@@ -13,7 +13,8 @@ COPY conf.d/error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
 
 RUN apt-get install -y libicu-dev && docker-php-ext-configure intl && docker-php-ext-install intl
 
-RUN ["apt-get", "install", "-y", "libz-dev", "libzip-dev"]
+RUN ["apt-get", "install", "-y", "libz-dev", "libzip-dev", "libpng-dev", "libwebp-dev", "libjpeg-dev", "libfreetype-dev"]
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && docker-php-ext-install gd
 RUN docker-php-ext-configure zip && docker-php-ext-install zip
 RUN docker-php-ext-configure bcmath && docker-php-ext-install bcmath
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install pdo_mysql
