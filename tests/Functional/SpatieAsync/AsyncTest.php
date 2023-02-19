@@ -1,17 +1,16 @@
 <?php
 
-namespace adamcameron\php8\tests\Functional\Async;
+namespace adamcameron\php8\tests\Functional\SpatieAsync;
 
 use adamcameron\php8\tests\Integration\Fixtures\Database as DB;
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
-use \Exception;
 
 /**
- * @testdox tests of spatie/async (https://github.com/spatie/async)
+ * @testdox tests of spatie/async async functionality (https://github.com/spatie/async)
  * @group slow
  */
-class SpatieAsyncTest extends TestCase
+class AsyncTest extends TestCase
 {
     /** @testdox It can call a slow proc multiple times async */
     public function testSlowProcAsync()
@@ -141,43 +140,7 @@ class SpatieAsyncTest extends TestCase
         $this->assertEquals([], $results);
     }
 
-    /** @testdox It supports exception handling */
-    public function testAsyncException()
-    {
-        $pool = Pool::create();
-        $pool
-            ->add(function () {
-                throw new \Exception("This is an exception");
-            })
-            ->catch(function (\Exception $exception) {
-                $this->assertStringStartsWith("This is an exception", $exception->getMessage());
-            });
-
-        $pool->wait();
-    }
-
-    /** @testdox It does not support exception handling from a then handler */
-    public function testAsyncExceptionFromThen()
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("This is an exception");
-
-        $pool = Pool::create();
-        $pool
-            ->add(function () {
-                // do nothing
-            })
-            ->then(function () {
-                throw new \Exception("This is an exception");
-            })
-            ->catch(function (\Exception $exception) {
-                $this->assertStringStartsWith("This is an exception", $exception->getMessage());
-            });
-
-        $pool->wait();
-    }
-
-    /**  @testdox It can stop a pool */
+    /** @testdox It can stop a pool */
     public function testPoolStop()
     {
         $pool = Pool::create();
