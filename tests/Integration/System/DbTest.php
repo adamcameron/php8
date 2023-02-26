@@ -15,7 +15,7 @@ class DbTest extends TestCase
 {
     private const MARIADB_MAJOR_VERSION = 10;
 
-    /** @testdox it can connect to the Database using PDO */
+    /** @testdox It can connect to the Database using PDO */
     public function testDbConnection()
     {
         $connection = DB::getPdoConnection();
@@ -24,7 +24,7 @@ class DbTest extends TestCase
         $this->assertStringStartsWith(self::MARIADB_MAJOR_VERSION, $result->fetchColumn());
     }
 
-    /** @testdox it can connect to the Database using DBAL */
+    /** @testdox It can connect to the Database using DBAL */
     public function testDbalConnection()
     {
         $connection = DB::getDbalConnection();
@@ -33,7 +33,7 @@ class DbTest extends TestCase
         $this->assertStringStartsWith(self::MARIADB_MAJOR_VERSION, $result->fetchOne());
     }
 
-    /** @testdox it can retrieve multiple records in one hit */
+    /** @testdox It can retrieve multiple records in one hit */
     public function testMultipleRecords()
     {
         $connection = DB::getDbalConnection();
@@ -49,7 +49,7 @@ class DbTest extends TestCase
         $this->assertEquals($expectedValues, $oneAndTwo);
     }
 
-    /** @testdox it will use a read-only connection if it can */
+    /** @testdox It will use a read-only connection if it can */
     public function testPrimaryReadReplicaConnectionReadOnlyConnection()
     {
         $connection = DB::getPrimaryReadReplicaConnection();
@@ -61,7 +61,7 @@ class DbTest extends TestCase
     }
 
     /**
-     * @testdox it will rollback an update in a failed transaction
+     * @testdox It will rollback an update in a failed transaction
      * @SuppressWarnings(PHPMD.EmptyCatchBlock)
      */
     public function testPrimaryReadReplicaConnectionRollback()
@@ -89,7 +89,7 @@ class DbTest extends TestCase
         }
     }
 
-    /** @testdox a connection will start on a replica then change to the primary and stay there after a write operation */
+    /** @testdox It will start a connection on a replica then change to the primary and stay there after a write operation */
     public function testPrimaryReadReplicaConnectionSwitchToPrimary()
     {
         $testValue = "TEST_VALUE_" . uniqid();

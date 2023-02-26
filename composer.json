@@ -26,22 +26,22 @@
         "ext-xml": "*",
         "ext-zend-opcache": "*",
         "ext-zip": "*",
-        "doctrine/dbal": "^3.5.3",
+        "doctrine/dbal": "^3.6.0",
         "guzzlehttp/guzzle": "^7.5.0",
         "spatie/async": "^1.5.5",
         "symfony/console": "^6.2.5",
         "symfony/dotenv": "^6.2.5",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.2.5",
         "symfony/framework-bundle": "^6.2.5",
-        "symfony/http-client": "^6.2.2",
+        "symfony/http-client": "^6.2.6",
         "symfony/monolog-bundle": "^3.8.0",
         "symfony/runtime": "^6.2.5",
         "symfony/yaml": "^6.2.5"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10",
+        "phpunit/phpunit": "^10.0.12",
         "phpmd/phpmd": "^2.13.0",
-        "squizlabs/php_codesniffer": "^3.7.1",
+        "squizlabs/php_codesniffer": "^3.7.2",
         "symfony/browser-kit": "^6.2.5"
     },
     "config": {

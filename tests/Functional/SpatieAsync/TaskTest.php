@@ -45,7 +45,7 @@ class TaskTest extends TestCase
         });
     }
 
-    /** @TestDox It supports a simplified version of a task */
+    /** @testdox It supports a simplified version of a task */
     public function testSimpleTask()
     {
         $pool = Pool::create();
