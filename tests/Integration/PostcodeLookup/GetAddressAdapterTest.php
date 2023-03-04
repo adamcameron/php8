@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @testdox Tests of the GetAddressAdapter
  * @group slow
+ * @group getaddress
  */
 class GetAddressAdapterTest extends TestCase
 {
@@ -20,6 +21,7 @@ class GetAddressAdapterTest extends TestCase
     {
         $client = HttpClient::create();
         $this->adapter = new GetAddressAdapter(getenv("ADDRESS_SERVICE_API_KEY"), $client);
+        $this->markTestSkipped("getaddress.io trial licence expired, so disabling tests");
     }
 
     /** @testdox It can get addresses from a valid postcode */

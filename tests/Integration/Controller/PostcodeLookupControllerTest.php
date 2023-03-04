@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @testdox Tests of the PostcodeLookupController
  * @group slow
+ * @group getaddress
  */
 class PostcodeLookupControllerTest extends WebTestCase
 {
@@ -18,6 +19,7 @@ class PostcodeLookupControllerTest extends WebTestCase
     protected function setUp(): void
     {
         $this->client = static::createClient();
+        $this->markTestSkipped("getaddress.io trial licence expired, so disabling tests");
     }
 
     /** @testdox It retrieves addresses when the post code is valid */

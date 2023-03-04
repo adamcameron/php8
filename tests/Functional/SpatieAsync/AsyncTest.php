@@ -39,7 +39,11 @@ class AsyncTest extends TestCase
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;
 
-        $this->assertLessThan(3, $executionTime);
+        $this->assertLessThan(
+            4,
+            $executionTime,
+            "Should execute in less time than it takes to run two sync calls"
+        );
         $this->assertCount(3, $results);
 
         $resultAsString = implode(",", $results);
