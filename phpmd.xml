@@ -25,4 +25,7 @@
     <rule ref="rulesets/naming.xml/ConstructorWithNameAsEnclosingClass"/>
     <rule ref="rulesets/naming.xml/ConstantNamingConventions"/>
     <rule ref="rulesets/naming.xml/BooleanGetMethodName"/>
+
+    <!-- while pdepend does not support readonly (see https://github.com/phpmd/phpmd/issues/998) -->
+    <exclude-pattern>src/Task/SlowDbCallTask.php</exclude-pattern>
 </ruleset>
