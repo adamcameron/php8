@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
 
 /**
- * @testdox tests of spatie/async async functionality (https://github.com/spatie/async)
+ * @testdox Tests of spatie/async async functionality (https://github.com/spatie/async)
  * @group slow
  */
 class AsyncTest extends TestCase
@@ -91,7 +91,11 @@ class AsyncTest extends TestCase
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;
 
-        $this->assertLessThan(3, $executionTime);
+        $this->assertLessThan(
+            4,
+            $executionTime,
+            "Should execute in less time than it takes to run two sync calls"
+        );
         $this->assertEquals([2, 2, 2], $results);
         $this->assertCount(3, $metrics);
         $this->assertContains("1:2:2", $metrics, "1:2:2 not found in " . implode(",", $metrics));
