@@ -80,6 +80,13 @@
             "@test",
             "@phpmd",
             "@phpcs"
+        ],"cache-clear-all": [
+            "rm -rf var/cache/dev",
+            "php bin/console cache:clear --env=dev",
+            "rm -rf var/cache/prod",
+            "php bin/console cache:clear --env=prod",
+            "rm -rf var/cache/test",
+            "php bin/console cache:clear --env=test"
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",

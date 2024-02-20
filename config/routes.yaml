@@ -8,3 +8,8 @@ PostcodeLookup:
     path: /postcode-lookup/{postcode}
     controller: adamcameron\php8\Controller\PostcodeLookupController::doGet
     methods: GET
+
+Observer:
+    path: /observer/{message}
+    controller: adamcameron\php8\designpatterns\observer\Controller::doGet
+    methods: GET

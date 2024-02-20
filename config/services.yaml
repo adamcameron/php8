@@ -46,3 +46,26 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    service.watcher1:
+        class: 'adamcameron\php8\designpatterns\observer\Watcher'
+        arguments:
+            $name: 'watcher1'
+
+    service.watcher2:
+        class: 'adamcameron\php8\designpatterns\observer\Watcher'
+        arguments:
+            $name: 'watcher2'
+
+    service.watcher3:
+        class: 'adamcameron\php8\designpatterns\observer\Watcher'
+        arguments:
+            $name: 'watcher3'
+
+    adamcameron\php8\designpatterns\observer\ObservedModelFactory:
+        arguments:
+            $observers: ["@service.watcher1", "@service.watcher2", "@service.watcher3"]
+
+    controller.observer:
+        class: 'adamcameron\php8\designpatterns\observer\Controller'
+        tags: ['controller.service_arguments']
