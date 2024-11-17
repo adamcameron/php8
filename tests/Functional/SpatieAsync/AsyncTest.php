@@ -25,8 +25,8 @@ class AsyncTest extends TestCase
             $pool->add(function () use ($connection, $i, $startTime) {
                 $result = $connection->executeQuery(
                     "CALL sleep_and_return(?)",
-                    [2])
-                ;
+                    [2]
+                );
                 return sprintf(
                     "%d:%d:%d",
                     $i,
