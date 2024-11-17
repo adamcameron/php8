@@ -1,0 +1,4 @@
+# make sure to set these with values in envVars.private
+ADDRESS_SERVICE_API_KEY=
+MARIADB_ROOT_PASSWORD=
+MARIADB_PASSWORD=

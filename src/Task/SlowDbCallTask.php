@@ -8,7 +8,7 @@ use Spatie\Async\Task;
 
 class SlowDbCallTask extends Task
 {
-    readonly private Connection $connection;
+    private readonly Connection $connection;
 
     public function __construct(
         readonly private int $i,
@@ -16,12 +16,12 @@ class SlowDbCallTask extends Task
     ) {
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->connection = DB::getDbalConnection();
     }
 
-    public function run()
+    public function run(): string
     {
         $result = $this->connection->executeQuery("CALL sleep_and_return(?)", [2]);
         return sprintf(

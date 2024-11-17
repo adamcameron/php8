@@ -2,20 +2,20 @@
 
 namespace adamcameron\php8\tests\Integration\System;
 
-use \DOMDocument;
-use \DOMXPath;
+use DOMDocument;
+use DOMXPath;
 use GuzzleHttp\Client;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @testdox Tests of Symfony installation
- * @group slow
- */
+#[TestDox("Tests of Symfony installation")]
+#[Group("slow")]
 class SymfonyTest extends TestCase
 {
-    /** @testdox It serves the default welcome page after installation */
+    #[TestDox("It serves the default welcome page after installation")]
     public function testSymfonyWelcomeScreenDisplays()
     {
         $client = new Client([
@@ -40,15 +40,13 @@ class SymfonyTest extends TestCase
         $this->assertCount(1, $hasTitle);
     }
 
-    /**
-     * @testdox It can run the console in a shell
-     * @SuppressWarnings(PHPMD.UnusedLocalVariable) - $output
-     */
+    /** @SuppressWarnings(PHPMD.UnusedLocalVariable) - $output */
+    #[TestDox("It can run the console in a shell")]
     public function testSymfonyConsoleRuns()
     {
         $appRootDir = dirname(__DIR__, 3);
 
-        exec("{$appRootDir}/bin/console --help", $output, $returnCode);
+        exec("$appRootDir/bin/console --help", $output, $returnCode);
 
         $this->assertEquals(Command::SUCCESS, $returnCode);
     }

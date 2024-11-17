@@ -3,12 +3,13 @@
 namespace adamcameron\php8\tests\Unit\Shapes;
 
 use adamcameron\php8\Shapes\Square;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests Square class */
+#[TestDox("Tests Square class")]
 class SquareTest extends TestCase
 {
-    /** @testdox getColour returns the Square's colour */
+    #[TestDox("getColour returns the Square's colour")]
     public function testGetColour()
     {
         $red = "whero";
@@ -19,7 +20,7 @@ class SquareTest extends TestCase
         $this->assertEquals($red, $actualColour);
     }
 
-    /** @testdox getArea returns the Circle's area */
+    #[TestDox("getArea returns the Circle's area")]
     public function testGetArea()
     {
         $square = new Square("NOT_TESTED", 2);

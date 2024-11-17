@@ -7,15 +7,15 @@ use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Logging\Middleware;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @testdox Tests Database objects
- * @group slow
- */
+#[TestDox("Database tests")]
+#[Group("slow")]
 class DbLoggingTest extends TestCase
 {
-    /** @testdox It can log SQL traffic */
+    #[TestDox("It can log SQL traffic")]
     public function testLogging()
     {
         $testLogger = new Logger("test");

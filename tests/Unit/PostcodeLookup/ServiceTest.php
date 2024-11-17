@@ -10,17 +10,17 @@ use adamcameron\php8\PostcodeLookup\Service as PostcodeLookupService;
 use adamcameron\php8\tests\Fixtures\PostcodeLookup\TestConstants;
 use Monolog\Handler\TestHandler;
 use Monolog\Level;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @testdox Tests of the Service */
+#[TestDox("Tests of the Service")]
 class ServiceTest extends TestCase
 {
-    /**
-     * @testdox It logs any issues we might need to deal with
-     * @dataProvider provideCasesForLoggingTests
-     */
+    #[TestDox("It logs any issues we might need to deal with")]
+    #[DataProvider("provideCasesForLoggingTests")]
     public function testLogging(
         int $statusCode,
         string $expectedMessage,
@@ -75,7 +75,7 @@ class ServiceTest extends TestCase
         ];
     }
 
-    /** @testdox It logs unhandled exceptions and returns an empty AdapterResponse */
+    #[TestDox("It logs unhandled exceptions and returns an empty AdapterResponse")]
     public function testExceptionHandling()
     {
         $expectedMessage = "TEST_EXCEPTION_MESSAGE";
@@ -121,7 +121,7 @@ class ServiceTest extends TestCase
         ContainerInterface $container,
         int $statusCode,
         string $expectedMessage,
-    ) {
+    ): void {
         $mockedAddressServiceAdapter = $this
             ->getMockBuilder(GetAddressAdapter::class)
             ->disableOriginalConstructor()
@@ -143,7 +143,7 @@ class ServiceTest extends TestCase
     private function configureContainerWithErroringAdapter(
         ContainerInterface $container,
         string $expectedMessage
-    ) {
+    ): void {
         $mockedAddressServiceAdapter = $this
             ->getMockBuilder(GetAddressAdapter::class)
             ->disableOriginalConstructor()

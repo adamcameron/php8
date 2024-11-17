@@ -4,14 +4,15 @@ namespace adamcameron\php8\tests\Integration\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
+use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @testdox Tests of Guzzle functionality
- * @group slow
- */
+#[TestDox("Tests of Guzzle functionality")]
+#[Group("slow")]
 class GuzzleTest extends HttpTestBase
 {
-    /** @testdox It can make a GET request */
+    #[TestDox("It can make a GET request")]
     public function testGet()
     {
         $client = new Client();
@@ -21,7 +22,7 @@ class GuzzleTest extends HttpTestBase
         $this->assertGitInfoIsCorrect($response->getBody());
     }
 
-    /** @testdox It can make a POST request */
+    #[TestDox("It can make a POST request")]
     public function testPost()
     {
         $client = new Client();
@@ -36,18 +37,21 @@ class GuzzleTest extends HttpTestBase
         $this->assertEquals('bar', $httpBinResponse->form->foo);
     }
 
-    /** @testdox It can make an asynchronous GET request */
+    #[TestDox("It can make an asynchronous GET request")]
     public function testAsyncGet()
     {
         $client = new Client();
-        $promise = $client->requestAsync('GET', 'https://api.github.com/users/adamcameron');
+        $promise = $client->requestAsync(
+            'GET',
+            'https://api.github.com/users/adamcameron'
+        );
         $response = $promise->wait();
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getBody());
         $this->assertGitInfoIsCorrect($response->getBody());
     }
 
-    /** @testdox It can make multiple asynchronous GET requests */
+    #[TestDox("It can make multiple asynchronous GET requests")]
     public function testMultipleAsyncGet()
     {
         $client = new Client();
@@ -65,12 +69,12 @@ class GuzzleTest extends HttpTestBase
         $this->assertLessThan(4, $totalTime);
 
         array_walk($responses, function ($response, $i) {
-            $this->assertEquals(200, $response->getStatusCode());
+            $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
             $this->assertEquals(sprintf("waited %d seconds", $i + 1), $response->getBody());
         });
     }
 
-    /** @testdox It can make an asynchronous POST request */
+    #[TestDox("It can make an asynchronous POST request")]
     public function testAsyncPost()
     {
         $client = new Client();
@@ -80,7 +84,7 @@ class GuzzleTest extends HttpTestBase
             ['form_params' => ['foo' => 'bar']]
         );
         $response = $promise->wait();
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getBody());
         $httpBinResponse = json_decode($response->getBody());
         $this->assertEquals('bar', $httpBinResponse->form->foo);

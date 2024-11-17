@@ -2,13 +2,14 @@
 
 namespace adamcameron\php8\tests\Integration\Http;
 
-/**
- * @testdox Tests of PHP streams functionality relating to HTTP requests
- * @group slow
- */
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
+
+#[TestDox("Tests of PHP streams functionality relating to HTTP requests")]
+#[Group("slow")]
 class PhpStreamsTest extends HttpTestBase
 {
-    /** @testdox It can make a GET request */
+    #[TestDox("It can make a GET request")]
     public function testGet()
     {
         $context = stream_context_create([
@@ -17,12 +18,16 @@ class PhpStreamsTest extends HttpTestBase
                 'header' => ['User-Agent: ' . $this->getUserAgentForCurl()]
             ]
         ]);
-        $response = file_get_contents('https://api.github.com/users/adamcameron', false, $context);
+        $response = file_get_contents(
+            'https://api.github.com/users/adamcameron',
+            false,
+            $context
+        );
         $this->assertJson($response);
         $this->assertGitInfoIsCorrect($response);
     }
 
-    /** @testdox It can make a POST request */
+    #[TestDox("It can make a POST request")]
     public function testPost()
     {
         $context = stream_context_create([

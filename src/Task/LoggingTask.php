@@ -14,13 +14,13 @@ class LoggingTask extends Task
     {
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this->logger = new Logger("test-logger");
         $this->logger->pushHandler(new StreamHandler("/var/log/LoggingTest.log"));
     }
 
-    public function run()
+    public function run(): void
     {
         $this->logger->info($this->message);
     }

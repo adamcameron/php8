@@ -3,15 +3,16 @@
 namespace adamcameron\php8\tests\Integration\Controller;
 
 use adamcameron\php8\tests\Fixtures\PostcodeLookup\TestConstants;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @testdox Tests of the PostcodeLookupController
- * @group slow
- * @group getaddress
- */
+#[TestDox("Tests of the PostcodeLookupController")]
+#[Group("slow")]
+#[Group("getaddress")]
 class PostcodeLookupControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
@@ -22,7 +23,7 @@ class PostcodeLookupControllerTest extends WebTestCase
         $this->markTestSkipped("getaddress.io trial licence expired, so disabling tests");
     }
 
-    /** @testdox It retrieves addresses when the post code is valid */
+    #[TestDox("It retrieves addresses when the post code is valid")]
     public function testRetrievesAddressesWhenPostCodeIsValid()
     {
         $this->client->request(
@@ -41,10 +42,8 @@ class PostcodeLookupControllerTest extends WebTestCase
         $this->assertGreaterThanOrEqual(1, count($result->addresses));
     }
 
-    /**
-     * @testdox It returns an error status code and no addresses when the postcode is invalid
-     * @dataProvider provideCasesForClientErrorTests
-     */
+    #[TestDox("It returns an error status code and no addresses when the postcode is invalid")]
+    #[DataProvider("provideCasesForClientErrorTests")]
     public function testReturnsErrorStatusCodeAndNoAddressesWhenPostCodeIsInvalid(
         string $postcode,
         int $statusCode

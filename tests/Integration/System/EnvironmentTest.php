@@ -2,16 +2,16 @@
 
 namespace adamcameron\php8\tests\Integration\System;
 
-use \Generator;
+use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests of environment variables */
+#[TestDox("Tests of environment variables")]
 class EnvironmentTest extends TestCase
 {
-    /**
-     * @testdox The expected environment variables exist
-     * @dataProvider provideCasesForEnvironmentVariablesTest
-     */
+    #[TestDox("The expected environment variables exist")]
+    #[DataProvider("provideCasesForEnvironmentVariablesTest")]
     public function testEnvironmentVariables(string $expectedEnvironmentVariable)
     {
         $this->assertNotFalse(

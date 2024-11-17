@@ -3,13 +3,14 @@
 namespace adamcameron\php8\tests\Functional\SpatieAsync;
 
 use adamcameron\php8\Task\LoggingTask;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
 
-/** @testdox Tests of async/await helper functions */
+#[TestDox("Tests of async/await helper functions")]
 class AsyncAwaitTest extends TestCase
 {
-    /** @testdox It supports async/await */
+    #[TestDox("It supports async/await")]
     public function testAsyncAwait()
     {
         $telemetry = [];
@@ -30,12 +31,22 @@ class AsyncAwaitTest extends TestCase
 
         sort($telemetry);
         $this->assertEquals(
-            ["main:1", "main:2", "main:3", "then1:1", "then1:2", "then1:3", "then2:1", "then2:2", "then2:3"],
+            [
+                "main:1",
+                "main:2",
+                "main:3",
+                "then1:1",
+                "then1:2",
+                "then1:3",
+                "then2:1",
+                "then2:2",
+                "then2:3"
+            ],
             $telemetry
         );
     }
 
-    /** @testdox It works with a task object */
+    #[TestDox("It works with a task object")]
     public function testTaskObject()
     {
         $logFile = "/var/log/LoggingTest.log";

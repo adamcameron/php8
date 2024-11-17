@@ -2,13 +2,15 @@
 
 namespace adamcameron\php8\tests\Integration\Http;
 
-/**
- * @testdox Tests of Curl functionality
- * @group slow
- */
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
+use Symfony\Component\HttpFoundation\Response;
+
+#[TestDox("Tests of Curl functionality")]
+#[Group("slow")]
 class CurlTest extends HttpTestBase
 {
-    /** @testdox It can make a GET request */
+    #[TestDox("It can make a GET request")]
     public function testGet()
     {
         $ch = curl_init();
@@ -20,12 +22,12 @@ class CurlTest extends HttpTestBase
         $response = curl_exec($ch);
         curl_close($ch);
 
-        $this->assertEquals(200, curl_getinfo($ch, CURLINFO_HTTP_CODE));
+        $this->assertEquals(Response::HTTP_OK, curl_getinfo($ch, CURLINFO_HTTP_CODE));
         $this->assertJson($response);
         $this->assertGitInfoIsCorrect($response);
     }
 
-    /** @testdox It can make a POST request */
+    #[TestDox("It can make a POST request")]
     public function testPost()
     {
         $ch = curl_init();
@@ -39,7 +41,7 @@ class CurlTest extends HttpTestBase
         $response = curl_exec($ch);
         curl_close($ch);
 
-        $this->assertEquals(200, curl_getinfo($ch, CURLINFO_HTTP_CODE));
+        $this->assertEquals(Response::HTTP_OK, curl_getinfo($ch, CURLINFO_HTTP_CODE));
         $this->assertJson($response);
         $httpBinResponse = json_decode($response);
 

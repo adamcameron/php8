@@ -4,13 +4,14 @@ namespace adamcameron\php8\tests\Functional\SpatieAsync;
 
 use adamcameron\php8\Task\SimpleTask;
 use adamcameron\php8\Task\SlowDbCallTask;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
 
-/** @testdox tests of spatie/async Task-based functionality */
+#[TestDox("tests of spatie/async Task-based functionality")]
 class TaskTest extends TestCase
 {
-    /** @testdox It can receive a Task object into the pool */
+    #[TestDox("It can receive a Task object into the pool")]
     public function testTask()
     {
         $pool = Pool::create();
@@ -45,7 +46,7 @@ class TaskTest extends TestCase
         });
     }
 
-    /** @testdox It supports a simplified version of a task */
+    #[TestDox("It supports a simplified version of a task")]
     public function testSimpleTask()
     {
         $pool = Pool::create();

@@ -2,12 +2,13 @@
 
 namespace adamcameron\php8\tests\Functional\Image;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests PHP image functionality */
+#[TestDox("Tests PHP image functionality")]
 class ImageTest extends TestCase
 {
-    /** @testdox It can flip and image with a single statement */
+    #[TestDox("It can flip and image with a single statement")]
     public function testImage()
     {
         $fixturesPath = __DIR__ . "/../../Fixtures/Images";

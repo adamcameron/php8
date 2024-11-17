@@ -3,12 +3,13 @@
 namespace adamcameron\php8\tests\Functional\System;
 
 use adamcameron\php8\Kernel;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests the logging config */
+#[TestDox("Tests the logging config")]
 class LoggerTest extends TestCase
 {
-    /** @testdox It writes GetAddress entries to the expected log file */
+    #[TestDox("It writes GetAddress entries to the expected log file")]
     public function testAddressServiceLogFile()
     {
         $kernel = new Kernel("test", false);

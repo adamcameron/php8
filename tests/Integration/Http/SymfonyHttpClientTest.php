@@ -2,26 +2,27 @@
 
 namespace adamcameron\php8\tests\Integration\Http;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @testdox Tests of Symfony's HTTP client functionality
- * @group slow
- */
+#[TestDox("Tests of Symfony's HTTP client functionality")]
+#[Group("slow")]
 class SymfonyHttpClientTest extends HttpTestBase
 {
 
-    /** @testdox It can make a GET request */
+    #[TestDox("It can make a GET request")]
     public function testGet()
     {
         $client = HttpClient::create();
         $response = $client->request('GET', 'https://api.github.com/users/adamcameron');
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $this->assertGitInfoIsCorrect($response->getContent());
     }
 
-    /** @testdox It can make multiple asynchronous GET requests */
+    #[TestDox("It can make multiple asynchronous GET requests")]
     public function testMultipleAsyncGet()
     {
         $client = HttpClient::create();
@@ -47,7 +48,7 @@ class SymfonyHttpClientTest extends HttpTestBase
         $this->assertLessThan(4, $totalTime);
     }
 
-    /** @testdox It can make a POST request */
+    #[TestDox("It can make a POST request")]
     public function testPost()
     {
         $client = HttpClient::create();

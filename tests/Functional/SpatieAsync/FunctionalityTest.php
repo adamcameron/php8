@@ -2,14 +2,15 @@
 
 namespace adamcameron\php8\tests\Functional\SpatieAsync;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
 
-/** @testdox tests of spatie/async functionality (https://github.com/spatie/async) */
+#[TestDox("tests of spatie/async functionality (https://github.com/spatie/async)")]
 class FunctionalityTest extends TestCase
 {
 
-    /** @testdox It supports exception handling */
+    #[TestDox("It supports exception handling")]
     public function testAsyncException()
     {
         $pool = Pool::create();
@@ -18,13 +19,16 @@ class FunctionalityTest extends TestCase
                 throw new \Exception("This is an exception");
             })
             ->catch(function (\Exception $exception) {
-                $this->assertStringStartsWith("This is an exception", $exception->getMessage());
+                $this->assertStringStartsWith(
+                    "This is an exception",
+                    $exception->getMessage()
+                );
             });
 
         $pool->wait();
     }
 
-    /** @testdox It does not support exception handling from a then handler */
+    #[TestDox("It does not support exception handling from a then handler")]
     public function testAsyncExceptionFromThen()
     {
         $this->expectException(\Exception::class);
@@ -39,7 +43,10 @@ class FunctionalityTest extends TestCase
                 throw new \Exception("This is an exception");
             })
             ->catch(function (\Exception $exception) {
-                $this->assertStringStartsWith("This is an exception", $exception->getMessage());
+                $this->assertStringStartsWith(
+                    "This is an exception",
+                    $exception->getMessage()
+                );
             });
 
         $pool->wait();

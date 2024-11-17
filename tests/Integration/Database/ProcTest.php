@@ -3,15 +3,15 @@
 namespace adamcameron\php8\tests\Integration\Database;
 
 use adamcameron\php8\tests\Integration\Fixtures\Database as DB;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @testdox Tests Database objects
- * @group slow
- */
+#[TestDox("Tests Database objects")]
+#[Group("slow")]
 class ProcTest extends TestCase
 {
-    /** @testdox It has a proc called sleep_and_return which idles for n seconds before returning its parameter value */
+    #[TestDox("It has a proc called sleep_and_return which idles for n seconds before returning its parameter value")]
     public function testSleepAndReturnProc()
     {
         $sleepDuration = 2;

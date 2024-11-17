@@ -3,16 +3,17 @@
 namespace adamcameron\php8\tests\Functional\SpatieAsync;
 
 use adamcameron\php8\tests\Integration\Fixtures\Database as DB;
+use Exception;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
 
-/**
- * @testdox Tests of spatie/async async functionality (https://github.com/spatie/async)
- * @group slow
- */
+#[TestDox("Tests of spatie/async async functionality")]
+#[Group("slow")]
 class AsyncTest extends TestCase
 {
-    /** @testdox It can call a slow proc multiple times async */
+    #[TestDox("It can call a slow proc multiple times async")]
     public function testSlowProcAsync()
     {
         $connection = DB::getDbalConnection();
@@ -22,7 +23,10 @@ class AsyncTest extends TestCase
         $startTime = microtime(true);
         for ($i = 1; $i <= 3; $i++) {
             $pool->add(function () use ($connection, $i, $startTime) {
-                $result = $connection->executeQuery("CALL sleep_and_return(?)", [2]);
+                $result = $connection->executeQuery(
+                    "CALL sleep_and_return(?)",
+                    [2])
+                ;
                 return sprintf(
                     "%d:%d:%d",
                     $i,
@@ -61,7 +65,7 @@ class AsyncTest extends TestCase
         });
     }
 
-    /** @testdox It uses a then handler which acts on the result */
+    #[TestDox("It uses a then handler which acts on the result")]
     public function testSlowProcAsyncThen()
     {
         $connection = DB::getDbalConnection();
@@ -73,7 +77,10 @@ class AsyncTest extends TestCase
         for ($i = 1; $i <= 3; $i++) {
             $pool
                 ->add(function () use ($connection) {
-                    $result = $connection->executeQuery("CALL sleep_and_return(?)", [2]);
+                    $result = $connection->executeQuery(
+                        "CALL sleep_and_return(?)",
+                        [2]
+                    );
                     return $result->fetchOne();
                 })
                 ->then(function ($result) use (&$metrics, $i, $startTime) {
@@ -103,7 +110,7 @@ class AsyncTest extends TestCase
         $this->assertContains("3:2:2", $metrics, "3:2:2 not found in " . implode(",", $metrics));
     }
 
-    /** @testdox It supports a timeout */
+    #[TestDox("It supports a timeout")]
     public function testSlowProcAsyncTimeout()
     {
         $connection = DB::getDbalConnection();
@@ -148,7 +155,7 @@ class AsyncTest extends TestCase
         $this->assertEquals([], $results);
     }
 
-    /** @testdox It can stop a pool */
+    #[TestDox("It can stop a pool")]
     public function testPoolStop()
     {
         $pool = Pool::create();
@@ -170,10 +177,8 @@ class AsyncTest extends TestCase
         $this->assertContains(100, $results);
     }
 
-    /**
-     * @testdox It can stop a pool from a catch
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $_ on the catch is required but not needed
-     */
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) $_ on the catch is required but not needed */
+    #[TestDox("It can stop a pool from a catch")]
     public function testPoolStopInCatch()
     {
         $pool = Pool::create();
@@ -182,10 +187,10 @@ class AsyncTest extends TestCase
             $pool->add(function () {
                 $result = rand(0, 100);
                 if ($result === 100) {
-                    throw new \Exception("Something went wrong");
+                    throw new Exception("Something went wrong");
                 }
                 return $result;
-            })->catch(function (\Exception $_) use ($pool) {
+            })->catch(function (Exception $_) use ($pool) {
                 $pool->stop();
             });
         }

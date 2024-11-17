@@ -2,9 +2,10 @@
 
 namespace adamcameron\php8\tests\Integration\Http;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests of HTTP request functionality */
+#[TestDox("Tests of HTTP request functionality")]
 abstract class HttpTestBase extends TestCase
 {
 

@@ -2,15 +2,16 @@
 
 namespace adamcameron\php8\tests\Integration\System;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests of the PHP installation */
+#[TestDox("Tests of the PHP installation")]
 class PhpTest extends TestCase
 {
-    /** @testdox It has the expected PHP version */
+    #[TestDox("It has the expected PHP version")]
     public function testPhpVersion()
     {
-        $expectedPhpVersion = "8.2";
+        $expectedPhpVersion = "8.3";
         $actualPhpVersion = phpversion();
         $this->assertStringStartsWith(
             $expectedPhpVersion,

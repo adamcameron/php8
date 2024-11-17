@@ -4,17 +4,18 @@ namespace adamcameron\php8\tests\Unit;
 
 use adamcameron\php8\Greeter;
 
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
-/** @testdox Tests of the Greeter class */
+#[TestDox("Tests of the Greeter class")]
 class GreeterTest extends TestCase
 {
-    /** @testdox It greets formally */
+    #[TestDox("It greets formally by default")]
     public function testFormalGreeting()
     {
         $name = "Zachary";
         $expectedGreeting = "Hello, $name";
-        $actualGreeting = Greeter::greet($name, Greeter::FORMAL);
+        $actualGreeting = Greeter::greet($name);
         $this->assertEquals(
             $expectedGreeting,
             $actualGreeting,
@@ -22,7 +23,7 @@ class GreeterTest extends TestCase
         );
     }
 
-    /** @testdox It greets informally */
+    #[TestDox("It greets informally")]
     public function testInformalGreeting()
     {
         $this->markTestSkipped("skipping this so the coverage report is more interesting");

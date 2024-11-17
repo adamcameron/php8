@@ -4,18 +4,19 @@ namespace adamcameron\php8\tests\Integration\PostcodeLookup;
 
 use adamcameron\php8\PostcodeLookup\GetAddressAdapter;
 use adamcameron\php8\tests\Fixtures\PostcodeLookup\TestConstants;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @testdox Tests of the GetAddressAdapter
- * @group slow
- * @group getaddress
- */
+#[TestDox("Tests of the GetAddressAdapter")]
+#[Group("slow")]
+#[Group("getaddress")]
 class GetAddressAdapterTest extends TestCase
 {
-    private $adapter;
+    private GetAddressAdapter $adapter;
 
     protected function setUp(): void
     {
@@ -24,7 +25,7 @@ class GetAddressAdapterTest extends TestCase
         $this->markTestSkipped("getaddress.io trial licence expired, so disabling tests");
     }
 
-    /** @testdox It can get addresses from a valid postcode */
+    #[TestDox("It can get addresses from a valid postcode")]
     public function testCanGetAddress()
     {
         $response = $this->adapter->get(TestConstants::POSTCODE_OK);
@@ -46,10 +47,8 @@ class GetAddressAdapterTest extends TestCase
         ];
     }
 
-    /**
-     * @testdox It returns the expected HTTP status code and a message but no addresses on an error
-     * @dataProvider provideErrorTestCases
-     */
+    #[TestDox("It returns the expected HTTP status code and a message but no addresses on an error")]
+    #[DataProvider("provideErrorTestCases")]
     public function testReturnsExpectedHttpStatusAndMessageButNoAddressesOnError($postcode, $expectedHttpStatus)
     {
         $response = $this->adapter->get($postcode);

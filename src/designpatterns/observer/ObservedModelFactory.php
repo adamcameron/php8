@@ -2,7 +2,7 @@
 
 namespace adamcameron\php8\designpatterns\observer;
 
-class ObservedModelFactory
+readonly class ObservedModelFactory
 {
     public function __construct(private array $observers)
     {

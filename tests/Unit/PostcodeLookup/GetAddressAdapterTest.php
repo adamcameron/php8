@@ -5,19 +5,19 @@ namespace adamcameron\php8\tests\Unit\PostcodeLookup;
 use adamcameron\php8\PostcodeLookup\AdapterException;
 use adamcameron\php8\PostcodeLookup\AdapterInterface;
 use adamcameron\php8\PostcodeLookup\GetAddressAdapter;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/**
- * @testdox Tests of GetAddressAdapter
- * @group slow
- */
+#[TestDox("Tests of GetAddressAdapter")]
+#[Group("slow")]
 class GetAddressAdapterTest extends TestCase
 {
-    /** @testdox It throws an GetAddress\AdapterException if the getaddress.io call returns an unexpected status */
+    #[TestDox("It throws an GetAddress\AdapterException if the getaddress.io call returns an unexpected status")]
     public function testThrowsExceptionOnUnexpectedStatus()
     {
         $statusToReturn = Response::HTTP_NOT_IMPLEMENTED;
@@ -32,7 +32,7 @@ class GetAddressAdapterTest extends TestCase
         $adapter->get("POSTCODE_NOT_TESTED");
     }
 
-    /** @testdox It throws an GetAddress\AdapterException if the body is not JSON */
+    #[TestDox("It throws an GetAddress\AdapterException if the body is not JSON")]
     public function testThrowsExceptionOnBodyNotJson()
     {
         $this->assertCorrectExceptionThrown(
@@ -45,7 +45,7 @@ class GetAddressAdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox It throws an GetAddress\AdapterException if the body is not an array */
+    #[TestDox("It throws an GetAddress\AdapterException if the body is not an array")]
     public function testThrowsExceptionOnResultNotArray()
     {
         $this->assertCorrectExceptionThrown(
@@ -58,7 +58,7 @@ class GetAddressAdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox It throws an GetAddress\AdapterException if there is no address data in the response json */
+    #[TestDox("It throws an GetAddress\AdapterException if there is no address data in the response json")]
     public function testThrowsExceptionOnNoAddressData()
     {
         $this->assertCorrectExceptionThrown(
@@ -74,7 +74,7 @@ class GetAddressAdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox It throws an GetAddress\AdapterException if the addresses data is not an array */
+    #[TestDox("It throws an GetAddress\AdapterException if the addresses data is not an array")]
     public function testThrowsExceptionOnAddressDataNotArray()
     {
         $this->assertCorrectExceptionThrown(
@@ -90,7 +90,7 @@ class GetAddressAdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox It throws an GetAddress\AdapterException if the addresses data is not an array of strings */
+    #[TestDox("It throws an GetAddress\AdapterException if the addresses data is not an array of strings")]
     public function testThrowsExceptionOnAddressDataNotArrayOfStrings()
     {
         $this->assertCorrectExceptionThrown(
@@ -106,7 +106,7 @@ class GetAddressAdapterTest extends TestCase
         $adapter->get("NOT_TESTED");
     }
 
-    /** @testdox It returns empty addresses with status code on a non-200-OK response */
+    #[TestDox("It returns empty addresses with status code on a non-200-OK response")]
     public function testReturnsEmptyAddressesOnNon200Response()
     {
         $statusToReturn = Response::HTTP_BAD_REQUEST;
@@ -122,7 +122,7 @@ class GetAddressAdapterTest extends TestCase
         $this->assertEquals([], $result->getAddresses());
     }
 
-    /** @testdox It returns the message on a non-200 response */
+    #[TestDox("It returns the message on a non-200 response")]
     public function testReturnsMessageOnNon200Response()
     {
         $statusToReturn = Response::HTTP_BAD_REQUEST;
@@ -139,7 +139,7 @@ class GetAddressAdapterTest extends TestCase
         $this->assertEquals($expectedMessage, $result->getMessage());
     }
 
-    /** @testdox It returns a standard message if the non-200 response doesn't include a valid one */
+    #[TestDox("It returns a standard message if the non-200 response doesn't include a valid one")]
     public function testReturnsStandardMessageOnNon200Response()
     {
         $statusToReturn = Response::HTTP_BAD_REQUEST;
@@ -155,7 +155,7 @@ class GetAddressAdapterTest extends TestCase
         $this->assertEquals("No failure message returned from service", $result->getMessage());
     }
 
-    /** @testdox It returns a AdapterResponse object if the response is valid */
+    #[TestDox("It returns a AdapterResponse object if the response is valid")]
     public function testReturnsResponseObject()
     {
         $statusToReturn = Response::HTTP_OK;
