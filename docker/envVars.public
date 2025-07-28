@@ -1,5 +1,9 @@
-# DO NOT put anything in here that should not be public (eg: passwords, api keys, etc)
+APP_CACHE_DIR=/var/cache/symfony
+APP_ENV=dev
+APP_LOG_DIR=/var/log/symfony
+COMPOSER_CACHE_DIR=/tmp/composer-cache
+MARIADB_DATABASE=db1
 MARIADB_HOST=mariadb
 MARIADB_PORT=3306
-MARIADB_DATABASE=db1
 MARIADB_USER=user1
+PHPUNIT_CACHE_RESULT_FILE=0

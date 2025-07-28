@@ -11,7 +11,7 @@ class PhpTest extends TestCase
     #[TestDox("It has the expected PHP version")]
     public function testPhpVersion()
     {
-        $expectedPhpVersion = "8.3";
+        $expectedPhpVersion = "8.4";
         $actualPhpVersion = phpversion();
         $this->assertStringStartsWith(
             $expectedPhpVersion,

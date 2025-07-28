@@ -14,3 +14,4 @@ VALUES
 ;
 
 ALTER TABLE test MODIFY COLUMN id INT auto_increment;
+
